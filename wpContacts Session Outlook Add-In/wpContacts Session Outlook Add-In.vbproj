@@ -24,7 +24,7 @@
     <ProjectGuid>{5DFB96D8-5185-4864-9D91-3F7E40FA2245}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>wpContact_Outlook_Add_in</RootNamespace>
-    <AssemblyName>wpContact-Outlook-Add-in</AssemblyName>
+    <AssemblyName>wpContacts-Session-Outlook-Add-In</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
     <StartupObject>
@@ -34,15 +34,15 @@
     <PublishUrl>c:\Deploy\wpContacts-Session-Outlook-Add-in\</PublishUrl>
     <InstallUrl />
     <TargetCulture>de</TargetCulture>
-    <ApplicationVersion>1.3.0.3</ApplicationVersion>
+    <ApplicationVersion>1.3.0.4</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
-    <ProductName>wpContacts Session Outlook-Add-in</ProductName>
+    <ProductName>wpContacts Session Outlook Add-In</ProductName>
     <PublisherName>WebPoint Internet Solutions Waller Alexander</PublisherName>
     <SupportUrl>https://www.webpoint.at/wpContact</SupportUrl>
-    <FriendlyName>wpContacts Session Outlook-Add-in</FriendlyName>
+    <FriendlyName>wpContacts Session Outlook Add-In</FriendlyName>
     <OfficeApplicationDescription>Outlook Add-in zum Syncronisieren von Kontakten mit der Session-Datenbank</OfficeApplicationDescription>
     <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>
@@ -97,7 +97,7 @@
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>wpContact-Outlook-Add-in.xml</DocumentationFile>
+    <DocumentationFile>wpContacts-Session-Outlook-Add-In.xml</DocumentationFile>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
@@ -126,7 +126,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>wpContact-Outlook-Add-in.xml</DocumentationFile>
+    <DocumentationFile>wpContacts-Session-Outlook-Add-In.xml</DocumentationFile>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
@@ -266,6 +266,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="wpContact-Outlook-Add-in_TemporaryKey.pfx" />
+    <None Include="wpContacts Session Outlook Add-In_TemporaryKey.pfx" />
     <None Include="wpContacts-olAddin.Designer.xml">
       <DependentUpon>wpContacts-olAddin.vb</DependentUpon>
     </None>
@@ -365,10 +366,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>wpContact-Outlook-Add-in_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>wpContacts Session Outlook Add-In_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>8504DEF364746B8E1F9FCA9B6834BDE71AD104FF</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>F6F3F68DE89C1CFFBF46C88CBB88F80B886EA1B8</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a Visual Basic project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

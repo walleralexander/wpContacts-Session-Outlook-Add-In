@@ -7,7 +7,7 @@
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" />
     <!--<UIRef Id="WixUI_Minimal" />-->
-    <Feature Id="ProductFeature" Title="wpContacts_Outlook_Add_In_Setup" Level="1">
+    <Feature Id="ProductFeature" Title="wpContacts_SessinOutlook_Add_In_Setup" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
     </Feature>
 
@@ -41,7 +41,7 @@
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <Component Id="ProductComponent">
-        <File Source="$(var.wpContacts-Outlook-Add-In.TargetPath)" />
+        <File Source="$(var.wpContacts Session Outlook Add-In.TargetPath)" />
       </Component>
     </ComponentGroup>
   </Fragment>

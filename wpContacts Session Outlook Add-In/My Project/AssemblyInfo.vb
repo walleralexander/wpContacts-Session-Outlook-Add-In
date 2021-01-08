@@ -9,11 +9,11 @@ Imports System.Security
 
 ' Werte der Assemblyattribute überprüfen
 
-<Assembly: AssemblyTitle("wpContacts Session Outlook-Add-in")>
-<Assembly: AssemblyDescription("Outlook Add-in zum Syncronisieren von Kontakten mit der Session-Datenbank")>
+<Assembly: AssemblyTitle("wpContacts Session Outlook Add-In")>
+<Assembly: AssemblyDescription("Outlook Add-In zum Syncronisieren von Kontakten mit der Session-Datenbank")>
 <Assembly: AssemblyCompany("WebPoint Internet Solutions Waller Alexander")>
-<Assembly: AssemblyProduct("wpContacts Session Outlook-Add-in")>
-<Assembly: AssemblyCopyright("Copyright ©  2020")> 
+<Assembly: AssemblyProduct("wpContacts Session Outlook Add-In")>
+<Assembly: AssemblyCopyright("Copyright ©  2021")>
 <Assembly: AssemblyTrademark("")> 
 
 ' Durch Festlegen von "ComVisible" auf "false" werden die Typen in dieser Assembly unsichtbar 

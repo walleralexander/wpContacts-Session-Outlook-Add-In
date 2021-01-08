@@ -7,7 +7,7 @@
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" />
     <!--<UIRef Id="WixUI_Minimal" />-->
-    <Feature Id="ProductFeature" Title="wpContacts_Outlook_Add_in_Setup" Level="1">
+    <Feature Id="ProductFeature" Title="wpContacts_Outlook_Add_In_Setup" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
     </Feature>
 
@@ -31,7 +31,7 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
         <Directory Id="ManufacturerFolder" Name="!(bind.property.Manufacturer)">
-          <Directory Id="INSTALLFOLDER" Name="wpContacts_Outlook_Add_in_Setup" />
+          <Directory Id="INSTALLFOLDER" Name="wpContacts_Outlook_Add_In_Setup" />
         </Directory>
       </Directory>
     </Directory>
@@ -41,7 +41,7 @@
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <Component Id="ProductComponent">
-        <File Source="$(var.wpContact-Outlook-Add-in.TargetPath)" />
+        <File Source="$(var.wpContacts-Outlook-Add-In.TargetPath)" />
       </Component>
     </ComponentGroup>
   </Fragment>

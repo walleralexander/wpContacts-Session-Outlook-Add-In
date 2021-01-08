@@ -8,6 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>wpContact Outlook-Session-Addin Setup</OutputName>
     <OutputType>Package</OutputType>
+    <Name>wpContacts Session Outlook-Add-In Setup</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -22,8 +23,8 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\wpContact-Outlook-Add-in\wpContact-Outlook-Add-in.vbproj">
-      <Name>wpContact-Outlook-Add-in</Name>
+    <ProjectReference Include="..\wpContact-Outlook-Add-in\wpContacts Session Outlook-Add-in.vbproj">
+      <Name>wpContacts Session Outlook-Add-In</Name>
       <Project>{5dfb96d8-5185-4864-9d91-3f7e40fa2245}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>

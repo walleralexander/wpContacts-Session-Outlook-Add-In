@@ -35,8 +35,8 @@ Imports System.Security
 ' übernehmen, indem Sie "*" eingeben:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.3.0.2")>
-<Assembly: AssemblyFileVersion("1.3.0.2")>
+<Assembly: AssemblyVersion("1.4.0.0")>
+<Assembly: AssemblyFileVersion("1.4.0.0")>
 <Assembly: log4net.Config.XmlConfigurator(ConfigFile:="config.log4net", Watch:=True)>
 
 Friend Module DesignTimeConstants

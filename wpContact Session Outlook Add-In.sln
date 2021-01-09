@@ -5,30 +5,66 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "wpContacts Session Outlook Add-In", "wpContacts Session Outlook Add-In\wpContacts Session Outlook Add-In.vbproj", "{5DFB96D8-5185-4864-9D91-3F7E40FA2245}"
 EndProject
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "wpContacts Session Outlook Add-In Setup_advinst", "wpContacts Session Outlook Add-In Setup_advinst\wpContacts Session Outlook Add-In Setup_advinst.aiproj", "{8929F3E4-334C-4241-9EFB-47B24B704B23}"
+EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "wpContacts Session Outlook Add-In Setup", "wpContacts Session Outlook Add-In Setup\wpContacts Session Outlook Add-In Setup.wixproj", "{3DC4A596-F148-495E-9D7D-40A468E34AF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		DefaultBuild|Any CPU = DefaultBuild|Any CPU
+		DefaultBuild|x86 = DefaultBuild|x86
 		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
+		SetupBuild|Any CPU = SetupBuild|Any CPU
+		SetupBuild|x86 = SetupBuild|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.Debug|x86.Build.0 = Debug|Any CPU
+		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.DefaultBuild|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
+		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.DefaultBuild|x86.ActiveCfg = Debug|Any CPU
+		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.DefaultBuild|x86.Build.0 = Debug|Any CPU
 		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.Release|x86.ActiveCfg = Release|Any CPU
 		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.Release|x86.Build.0 = Release|Any CPU
+		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.SetupBuild|Any CPU.ActiveCfg = Release|Any CPU
+		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.SetupBuild|x86.ActiveCfg = SetupBuild|Any CPU
+		{5DFB96D8-5185-4864-9D91-3F7E40FA2245}.SetupBuild|x86.Build.0 = SetupBuild|Any CPU
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.Debug|Any CPU.ActiveCfg = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.Debug|Any CPU.Build.0 = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.Debug|x86.ActiveCfg = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.Debug|x86.Build.0 = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.DefaultBuild|Any CPU.ActiveCfg = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.DefaultBuild|Any CPU.Build.0 = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.DefaultBuild|x86.ActiveCfg = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.DefaultBuild|x86.Build.0 = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.Release|Any CPU.ActiveCfg = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.Release|x86.ActiveCfg = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.Release|x86.Build.0 = DefaultBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.SetupBuild|Any CPU.ActiveCfg = SetupBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.SetupBuild|x86.ActiveCfg = SetupBuild
+		{8929F3E4-334C-4241-9EFB-47B24B704B23}.SetupBuild|x86.Build.0 = SetupBuild
 		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.Debug|x86.ActiveCfg = Debug|x86
 		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.Debug|x86.Build.0 = Debug|x86
+		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.DefaultBuild|Any CPU.ActiveCfg = Debug|x86
+		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.DefaultBuild|Any CPU.Build.0 = Debug|x86
+		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.DefaultBuild|x86.ActiveCfg = Debug|x86
+		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.DefaultBuild|x86.Build.0 = Debug|x86
 		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.Release|Any CPU.ActiveCfg = Release|x86
+		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.Release|Any CPU.Build.0 = Release|x86
 		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.Release|x86.ActiveCfg = Release|x86
 		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.Release|x86.Build.0 = Release|x86
+		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.SetupBuild|Any CPU.ActiveCfg = Release|x86
+		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.SetupBuild|Any CPU.Build.0 = Release|x86
+		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.SetupBuild|x86.ActiveCfg = Release|x86
+		{3DC4A596-F148-495E-9D7D-40A468E34AF0}.SetupBuild|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

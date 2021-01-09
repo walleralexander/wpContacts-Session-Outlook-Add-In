@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DeployedProjects>
+    <string>wpContacts Session Outlook Add-In\wpContacts Session Outlook Add-In.vbproj</string>
+  </DeployedProjects>
+  <DirectoryMappings>
+    <Item Key="" Value="APPLICATIONROOTDIRECTORY" />
+  </DirectoryMappings>
+  <FileMappings />
+  <DeploySymbols>false</DeploySymbols>
+  <DeployLocalizations>false</DeployLocalizations>
+  <DeployExternalLocalizations>false</DeployExternalLocalizations>
+  <ExcludedProjectItems>-</ExcludedProjectItems>
+</Configuration>

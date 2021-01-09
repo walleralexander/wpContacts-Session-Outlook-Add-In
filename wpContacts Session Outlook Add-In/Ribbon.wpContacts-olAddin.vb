@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.Office.Tools.Ribbon
-Imports System.Windows.Forms
 Imports System.Deployment.Application
+Imports System.Reflection
 
 '### https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.contactitem?view=outlook-pia
 '### https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.distlistitem?view=outlook-pia
@@ -10,29 +10,36 @@ Public Class WpContactsRibbon1
         Dim sqlok As Boolean = False
         Dim outlookok As Boolean = False
         MyLog("### RIBBONLOAD start")
-        My.Settings.isConfigured = False
-        SetNetworkConfigPath()
-        sqlok = SqlTestConnection(My.Settings.SQLDataSource, My.Settings.SQLInitialCatalog, My.Settings.SQLUserID, My.Settings.SQLPassword)
-        outlookok = CheckOutlookFolderExists(My.Settings.OlFolder)
-        If sqlok = True And outlookok = True Then My.Settings.isConfigured = True
-        My.Settings.Save()
-        ListSettings()
+        Try
+            My.Settings.isConfigured = False
+            SetNetworkConfigPath()
+            sqlok = SqlTestConnection(My.Settings.SQLDataSource, My.Settings.SQLInitialCatalog, My.Settings.SQLUserID, My.Settings.SQLPassword)
+            outlookok = CheckOutlookFolderExists(My.Settings.OlFolder)
+            If sqlok = True And outlookok = True Then My.Settings.isConfigured = True
+            My.Settings.Save()
+            ListSettings()
 
-        If My.Settings.isConfigured = True Then
-            BtnUpdate.Enabled = True
-            AnzSessionMitarbeiter.Text = My.Settings.AnzSessionMitarbeiter
-            AnzSessionGremien.Text = My.Settings.AnzSessionGremien
-            AnzOutlookItems.Text = My.Settings.AnzOutlookItems
-            AnzOutlookVerteiler.Text = My.Settings.AnzOutlookVerteiler
-            AnzOutlookKontakte.Text = My.Settings.AnzOutlookKontakte
-            lblKontakteordner.Label = My.Settings.OlFolder
-        Else
-            LoadNetworkConfiguration()
-            CreateOutlookFolder(My.Settings.OlFolder)
-            BtnUpdate.Enabled = True
-        End If
+            If My.Settings.isConfigured = True Then
+                BtnUpdate.Enabled = True
+                AnzSessionMitarbeiter.Text = My.Settings.AnzSessionMitarbeiter
+                AnzSessionGremien.Text = My.Settings.AnzSessionGremien
+                AnzOutlookItems.Text = My.Settings.AnzOutlookItems
+                AnzOutlookVerteiler.Text = My.Settings.AnzOutlookVerteiler
+                AnzOutlookKontakte.Text = My.Settings.AnzOutlookKontakte
+                lblKontakteordner.Label = My.Settings.OlFolder
+            Else
+                LoadNetworkConfiguration()
+                CreateOutlookFolder(My.Settings.OlFolder)
+                BtnUpdate.Enabled = True
+            End If
+        Catch ex As Exception
+            MyLog($"Ribbon1_Load: {ex.Message}", "error")
+            MyLog($"Ribbon1_Load: {ex.InnerException}", "error")
+            MyLog($"Ribbon1_Load: {ex.Source}", "error")
+        Finally
+            MyLog("### RIBBONLOAD end")
+        End Try
 
-        MyLog("### RIBBONLOAD end")
     End Sub
 
     Private Sub BtnUpdate_Click(sender As Object, e As RibbonControlEventArgs) Handles BtnUpdate.Click

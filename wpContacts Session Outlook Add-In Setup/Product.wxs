@@ -10,15 +10,10 @@
   <?define ProductName="wpContacts Session Outlook Add-In"?>
   <?define CompanyName="WebPoint"?>
   <?define MAINEXE=$(var.wpContacts Session Outlook Add-In.TargetFileName)?>
-  <?define ProductVersion=!(bind.FileVersion.dll)?>  
+  <?define ProductVersion=!(bind.FileVersion.wpContacts_Session_Outlook_Add_In.dll)?>
+  <?define wpContacts Session Outlook Add-In_TargetDir=$(var.wpContacts Session Outlook Add-In.TargetDir)?>  
   
-  <Product Id="*" 
-      Name="$(var.ProductName)"
-      Language="1033"
-      Manufacturer="$(var.CompanyName)"
-      UpgradeCode="0fe9de38-b3b6-43ea-88e2-cc884a79d9ba"
-      Version="$(var.ProductVersion)"
-   >
+  <Product Id="*" Name="$(var.ProductName)" Language="1033" Manufacturer="$(var.CompanyName)" UpgradeCode="0fe9de38-b3b6-43ea-88e2-cc884a79d9ba" Version="$(var.ProductVersion)">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
@@ -35,51 +30,45 @@
     <!-- Step 2: Add files to your installer package -->
     <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
      
-      <Component Id="vsto" Guid="*">
-        <!--<File Source="$(var.wpContacts Session Outlook Add-In.TargetPath)" KeyPath="yes" />-->
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.vsto" KeyPath="yes" />
-      </Component>
-      <Component Id="dll" Guid="*">
+      <!--<Component Id="dll" Guid="*">
         <File Id="dll" Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="manifest" Guid="*">
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.dll.manifest" KeyPath="yes" />
-      </Component>
-      <Component Id="config" Guid="*">
+      </Component>-->
+      
+      <!--<Component Id="config" Guid="*">
         <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.dll.config" KeyPath="yes" />
-      </Component>
-      <Component Id="config.log4net" Guid="*">
+      </Component>-->
+      <!--<Component Id="config.log4net" Guid="*">
         <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\config.log4net" KeyPath="yes" />
-      </Component>
-      <Component Id="log4net.dll" Guid="*">
+      </Component>-->
+      <!--<Component Id="log4net.dll" Guid="*">
         <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\log4net.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="Microsoft.Exchange.WebServices.dll" Guid="*">
+      </Component>-->
+      <!--<Component Id="Microsoft.Exchange.WebServices.dll" Guid="*">
         <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\Microsoft.Exchange.WebServices.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="pdb" Guid="*">
+      </Component>-->
+      <!--<Component Id="pdb" Guid="*">
         <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.pdb" KeyPath="yes" />
-      </Component>
-      <Component Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" Guid="*">
+      </Component>-->
+      <!--<Component Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" Guid="*">
         <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\Microsoft.Office.Tools.Common.v4.0.Utilities.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" Guid="*">
+      </Component>-->
+      <!--<Component Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" Guid="*">
         <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="log4net.xml" Guid="*">
+      </Component>-->
+      <!--<Component Id="log4net.xml" Guid="*">
         <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\log4net.xml" KeyPath="yes" />
       </Component>
       <Component Id="xml" Guid="*">
         <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.xml" KeyPath="yes" />
-      </Component>
+      </Component>-->
 
       <!-- HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\Outlook\Addins -->
       <!-- HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Office\Outlook\Addins -->
       <Component Id="RegistryEntries" Guid="*">
-        <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Office\Outlook\Addins" >
-          <RegistryKey Key="wpContacts-Session-Outlook-Add-In" ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Office\Outlook\Addins">
+          <RegistryKey Key="wpContacts-Session-Outlook-Add-In" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
             <RegistryValue Type="string" Name="FriendlyName" Value="wpContacts Session Outlook Add-In" KeyPath="yes" />
-            <RegistryValue Type="string" Name="Description" Value="Outlook Add-in zum Syncronisieren von Kontakten mit der Session-Datenbank"/>
+            <RegistryValue Type="string" Name="Description" Value="Outlook Add-in zum Syncronisieren von Kontakten mit der Session-Datenbank" />
             <RegistryValue Type="integer" Name="LoadBehavior" Value="3" />
             <RegistryValue Type="string" Name="Manifest" Value="[APPLICATIONROOTDIRECTORY]wpContacts-Session-Outlook-Add-In.vsto|vstolocal" />
           </RegistryKey>
@@ -91,25 +80,83 @@
     
     <!-- Step 3: Tell WiX to install the files -->
     <Feature Id="MainApplication" Title="wpContacts Session Outlook Add-In" Level="1">
-      <ComponentRef Id="vsto" />
-      <ComponentRef Id="dll" />
-      <ComponentRef Id="manifest" />
-      <ComponentRef Id="config" />
-      <ComponentRef Id="log4net.dll" />
-      <ComponentRef Id="config.log4net" />
-      <ComponentRef Id="Microsoft.Exchange.WebServices.dll" />
-      <ComponentRef Id="pdb" />
+
+      <!--<ComponentRef Id="config.log4net" />-->
+      <!--<ComponentRef Id="Microsoft.Exchange.WebServices.dll" />-->
+      <!--<ComponentRef Id="pdb" />
       <ComponentRef Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" />
       <ComponentRef Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" />
       <ComponentRef Id="log4net.xml" />
-      <ComponentRef Id="xml" />
+      <ComponentRef Id="xml" />-->
       
       <ComponentRef Id="RegistryEntries" />
+      <ComponentGroupRef Id="APPLICATIONROOTDIRECTORY_files" />
     </Feature>
 
   </Product>
   
- 
+  <Fragment>
+    <ComponentGroup Id="APPLICATIONROOTDIRECTORY_files" Directory="APPLICATIONROOTDIRECTORY">
+
+      <Component Id="wpContacts_Session_Outlook_Add_In.vsto" Guid="*">
+        <File Id="wpContacts_Session_Outlook_Add_In.vsto"
+              Name="wpContacts-Session-Outlook-Add-In.vsto"
+              Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.vsto" />
+      </Component>
+      
+      <Component Id="wpContacts_Session_Outlook_Add_In.dll.manifest" Guid="*">
+        <File Id="wpContacts_Session_Outlook_Add_In.dll.manifest"
+              Name="wpContacts-Session-Outlook-Add-In.dll.manifest"
+              Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.dll.manifest" />
+      </Component>
+
+      <Component Id="wpContacts_Session_Outlook_Add_In.dll" Guid="e5e9a0ba-e041-4d24-9b74-c7c066acd78f">
+        <File Id="wpContacts_Session_Outlook_Add_In.dll" 
+              Name="wpContacts-Session-Outlook-Add-In.dll" 
+              Source="$(var.wpContacts Session Outlook Add-In_TargetDir)wpContacts-Session-Outlook-Add-In.dll"
+              KeyPath="yes" />
+      </Component>
+      
+      <Component Id="wpContacts_Session_Outlook_Add_In.dll.config" Guid="4b59e562-bb8a-4455-8b12-a9f3b7661274">
+        <File Id="wpContacts_Session_Outlook_Add_In.dll.config" 
+              Name="wpContacts-Session-Outlook-Add-In.dll.config" 
+              Source="$(var.wpContacts Session Outlook Add-In_TargetDir)wpContacts-Session-Outlook-Add-In.dll.config" />
+      </Component>
+
+      <Component Id="log4net.dll" Guid="930059b0-e1a4-44d9-8d08-b14f51c943ea">
+        <File Id="log4net.dll"
+              Name="log4net.dll"
+              Source="$(var.wpContacts Session Outlook Add-In_TargetDir)log4net.dll" />
+      </Component>
+
+      <Component Id="config.log4net" Guid="*">
+        <File Id="config.log4net"
+              Name="config.log4net"
+              Source="$(var.wpContacts Session Outlook Add-In_TargetDir)config.log4net" />
+      </Component>
+
+      <Component Id="Microsoft.Exchange.WebServices.dll" Guid="1f308658-5e79-4220-a1e5-0ece4333c69d">
+        <File Id="Microsoft.Exchange.WebServices.dll" 
+              Name="Microsoft.Exchange.WebServices.dll" 
+              Source="$(var.wpContacts Session Outlook Add-In_TargetDir)Microsoft.Exchange.WebServices.dll" />
+      </Component>
+      
+      <Component Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" Guid="6976751f-262f-47ab-bed4-eada46309ea2">
+        <File Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" 
+              Name="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" 
+              Source="$(var.wpContacts Session Outlook Add-In_TargetDir)Microsoft.Office.Tools.Common.v4.0.Utilities.dll" />
+      </Component>
+      
+      <Component Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" Guid="d5381e99-0e15-42b7-8f7b-95d142a8f10f">
+        <File Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" 
+              Name="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" 
+              Source="$(var.wpContacts Session Outlook Add-In_TargetDir)Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" />
+      </Component>
+      
+    </ComponentGroup>
+  </Fragment>
+
+
 
   <!--<InstallExecuteSequence>
       <Custom Action="Set_Action1_Install_Props" After="InstallInitialize" />

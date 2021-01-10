@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <!-- #### https://github.com/walleralexander/wpContacts-Session-Outlook-Add-In/blob/master/LICENSE.txt -->
+
+<!--
+      Copyright(C) 2021  Alexander Waller
   
-  <!--
-  <?define ProductName="$(fileVersion.ProductName($(var.wpContacts Session Outlook Add-In.TargetPath)))" ?>
-  <?define CompanyName="$(fileVersion.CompanyName($(var.wpContacts Session Outlook Add-In.TargetPath)))" ?>
-  <?define ProductVersion="$(fileVersion.ProductVersion($(var.wpContacts Session Outlook Add-In.TargetPath)))" ?>
+      This program Is free software: you can redistribute it And/Or modify
+      it under the terms Of the GNU Affero General Public License As
+      published by the Free Software Foundation, either version 3 Of the
+      License, Or (at your option) any later version.
+  
+      This program Is distributed In the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty Of
+      MERCHANTABILITY Or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU Affero General Public License For more details.
+  
+      You should have received a copy Of the GNU Affero General Public License
+      along with this program.  If Not, see < https: //www.gnu.org/licenses/>.
   -->
-  
   <?define ProductName="wpContacts Session Outlook Add-In"?>
   <?define CompanyName="WebPoint"?>
   <?define MAINEXE=$(var.wpContacts Session Outlook Add-In.TargetFileName)?>
   <?define ProductVersion=!(bind.FileVersion.wpContacts_Session_Outlook_Add_In.dll)?>
   <?define wpContacts Session Outlook Add-In_TargetDir=$(var.wpContacts Session Outlook Add-In.TargetDir)?>  
   
-  <Product Id="*" Name="$(var.ProductName)" Language="1033" Manufacturer="$(var.CompanyName)" UpgradeCode="0fe9de38-b3b6-43ea-88e2-cc884a79d9ba" Version="$(var.ProductVersion)">
-    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
-    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-    <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
+  <Product Id="*" 
+           Name="$(var.ProductName)" 
+           Language="1033" 
+           Manufacturer="$(var.CompanyName)" 
+           UpgradeCode="0fe9de38-b3b6-43ea-88e2-cc884a79d9ba" 
+           Version="$(var.ProductVersion)">
+    <Package InstallerVersion="200" 
+             Compressed="yes" 
+             InstallScope="perMachine"  
+             Description="$(var.ProductName)"
+             Keywords="WebPoint Waller Alexander wpContacts Session Outlook Add-In" 
+             Comments="Version $(var.ProductVersion)"  />
+          <!--"Outlook Add-In um Kontakte und Verteiler aus einer Session-Datenbank in einem Outlook-Ordner anzulegen"-->
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+                  Schedule="afterInstallInitialize"
+                  AllowSameVersionUpgrades="yes"/>
+    
+    <Media Id="1" 
+           Cabinet="myapplication.cab" 
+           EmbedCab="yes" />
    
     <!-- Step 1: Define the directory structure -->
     <Directory Id="TARGETDIR" Name="SourceDir">
@@ -29,39 +56,6 @@
 
     <!-- Step 2: Add files to your installer package -->
     <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
-     
-      <!--<Component Id="dll" Guid="*">
-        <File Id="dll" Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.dll" KeyPath="yes" />
-      </Component>-->
-      
-      <!--<Component Id="config" Guid="*">
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.dll.config" KeyPath="yes" />
-      </Component>-->
-      <!--<Component Id="config.log4net" Guid="*">
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\config.log4net" KeyPath="yes" />
-      </Component>-->
-      <!--<Component Id="log4net.dll" Guid="*">
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\log4net.dll" KeyPath="yes" />
-      </Component>-->
-      <!--<Component Id="Microsoft.Exchange.WebServices.dll" Guid="*">
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\Microsoft.Exchange.WebServices.dll" KeyPath="yes" />
-      </Component>-->
-      <!--<Component Id="pdb" Guid="*">
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.pdb" KeyPath="yes" />
-      </Component>-->
-      <!--<Component Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" Guid="*">
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\Microsoft.Office.Tools.Common.v4.0.Utilities.dll" KeyPath="yes" />
-      </Component>-->
-      <!--<Component Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" Guid="*">
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" KeyPath="yes" />
-      </Component>-->
-      <!--<Component Id="log4net.xml" Guid="*">
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\log4net.xml" KeyPath="yes" />
-      </Component>
-      <Component Id="xml" Guid="*">
-        <File Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.xml" KeyPath="yes" />
-      </Component>-->
-
       <!-- HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\Outlook\Addins -->
       <!-- HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Office\Outlook\Addins -->
       <Component Id="RegistryEntries" Guid="*">
@@ -74,21 +68,10 @@
           </RegistryKey>
         </RegistryKey>
       </Component>
-    
     </DirectoryRef>
-    <!--</ComponentGroup>-->
     
     <!-- Step 3: Tell WiX to install the files -->
     <Feature Id="MainApplication" Title="wpContacts Session Outlook Add-In" Level="1">
-
-      <!--<ComponentRef Id="config.log4net" />-->
-      <!--<ComponentRef Id="Microsoft.Exchange.WebServices.dll" />-->
-      <!--<ComponentRef Id="pdb" />
-      <ComponentRef Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" />
-      <ComponentRef Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" />
-      <ComponentRef Id="log4net.xml" />
-      <ComponentRef Id="xml" />-->
-      
       <ComponentRef Id="RegistryEntries" />
       <ComponentGroupRef Id="APPLICATIONROOTDIRECTORY_files" />
     </Feature>
@@ -97,7 +80,6 @@
   
   <Fragment>
     <ComponentGroup Id="APPLICATIONROOTDIRECTORY_files" Directory="APPLICATIONROOTDIRECTORY">
-
       <Component Id="wpContacts_Session_Outlook_Add_In.vsto" Guid="*">
         <File Id="wpContacts_Session_Outlook_Add_In.vsto"
               Name="wpContacts-Session-Outlook-Add-In.vsto"
@@ -114,7 +96,8 @@
         <File Id="wpContacts_Session_Outlook_Add_In.dll" 
               Name="wpContacts-Session-Outlook-Add-In.dll" 
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)wpContacts-Session-Outlook-Add-In.dll"
-              KeyPath="yes" />
+              KeyPath="yes" 
+              Checksum="yes"/>
       </Component>
       
       <Component Id="wpContacts_Session_Outlook_Add_In.dll.config" Guid="4b59e562-bb8a-4455-8b12-a9f3b7661274">
@@ -152,23 +135,11 @@
               Name="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" 
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" />
       </Component>
-      
+      <Component Id="LICENSE.txt" Guid="19475BC6-163B-4CEC-8115-D288C655A9FE">
+        <File Id="LICENSE.txt"
+              Name="LICENSE.txt"
+              Source="$(var.SolutionDir)LICENSE.txt" />
+      </Component>
     </ComponentGroup>
   </Fragment>
-
-
-
-  <!--<InstallExecuteSequence>
-      <Custom Action="Set_Action1_Install_Props" After="InstallInitialize" />
-      <Custom Action="Action1_Install" Before="InstallFinalize"> (NOT (REMOVE="ALL")) </Custom>
-      <Custom Action="Set_Action2_Uninstall_Props" After="InstallInitialize" />
-      <Custom Action="Action2_Uninstall" Before="RemoveFiles"> (REMOVE="ALL") </Custom>
-      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
-
-      <RemoveExistingProducts After="InstallInitialize" />
-    </InstallExecuteSequence>
-    
-    <InstallUISequence>
-      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
-    </InstallUISequence>-->
 </Wix>

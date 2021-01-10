@@ -13,7 +13,7 @@ Imports System.Security
 <Assembly: AssemblyDescription("Outlook Add-In zum Syncronisieren von Kontakten mit der Session-Datenbank")>
 <Assembly: AssemblyCompany("WebPoint Internet Solutions Waller Alexander")>
 <Assembly: AssemblyProduct("wpContacts Session Outlook Add-In")>
-<Assembly: AssemblyCopyright("Copyright ©  2021")>
+<Assembly: AssemblyCopyright("Copyright ©  2021 Alexander Waller GNU AGPL")>
 <Assembly: AssemblyTrademark("")> 
 
 ' Durch Festlegen von "ComVisible" auf "false" werden die Typen in dieser Assembly unsichtbar 

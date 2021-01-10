@@ -265,7 +265,7 @@
     <None Include="config.log4net">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="wpContact-Outlook-Add-in_TemporaryKey.pfx" />
+    <None Include="wpContacts Session Outlook Add-In_1_TemporaryKey.pfx" />
     <None Include="wpContacts Session Outlook Add-In_TemporaryKey.pfx" />
     <None Include="wpContacts-olAddin.Designer.xml">
       <DependentUpon>wpContacts-olAddin.vb</DependentUpon>
@@ -366,10 +366,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>wpContacts Session Outlook Add-In_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>wpContacts Session Outlook Add-In_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>F6F3F68DE89C1CFFBF46C88CBB88F80B886EA1B8</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>CE0C54F0CBF66CF1BCED05A84812F985FDA218E1</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SetupBuild|AnyCPU'">
     <OutputPath>bin\SetupBuild\</OutputPath>

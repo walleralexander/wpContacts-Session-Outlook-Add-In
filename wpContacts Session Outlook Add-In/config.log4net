@@ -10,7 +10,7 @@
     
     <appender name="LogFileAppender" type="log4net.Appender.RollingFileAppender">
       <!-- Specify which file to write to -->
-      <param name="File" value="c:\temp\wpContact-Outlook-AddIn.log" />
+      <param name="File" value="c:\temp\wpContacts_Session_Outlook_Add-In.log" />
       <!-- <file value="c:\temp\myLoggerFile.log" /> -->
       <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
       <appendToFile value="true" />

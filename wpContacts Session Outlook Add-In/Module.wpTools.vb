@@ -3,6 +3,23 @@ Imports log4net
 '### https://www.codeproject.com/Tips/309804/Beginners-Guide-How-to-Implement-Log4net-in-VB-NET
 '### https://andydunkel.net/2018/08/23/logging-mit-log4net/
 
+'### LIZENZ / LICENSE https://github.com/walleralexander/wpContacts-Session-Outlook-Add-In/blob/master/LICENSE.txt
+
+'    Copyright(C) 2021  Alexander Waller
+'
+'    This program Is free software: you can redistribute it And/Or modify
+'    it under the terms Of the GNU Affero General Public License As
+'    published by the Free Software Foundation, either version 3 Of the
+'    License, Or (at your option) any later version.
+'
+'    This program Is distributed In the hope that it will be useful,
+'    but WITHOUT ANY WARRANTY; without even the implied warranty Of
+'    MERCHANTABILITY Or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'    GNU Affero General Public License For more details.
+'
+'    You should have received a copy Of the GNU Affero General Public License
+'    along with this program.  If Not, see < https: //www.gnu.org/licenses/>.
+
 Module WpToolsModule
     Public log As log4net.ILog = LogManager.GetLogger("WpTestFrameworkModule")
     Public Sub MyLog(message As String, Optional level As String = "info")
@@ -31,7 +48,7 @@ Module WpToolsModule
                 My.Settings.NetworkConfigStore = Environment.GetEnvironmentVariable("wpconfig")
             Else
                 '### Thats for developement only
-                My.Settings.NetworkConfigStore = "\\v-046\msi\webpoint"
+                'My.Settings.NetworkConfigStore = "\\v-046\msi\webpoint"
             End If
             Return True
         Catch ex As Exception
@@ -50,7 +67,7 @@ Module WpToolsModule
             For Each configrow In configtable.Rows
                 Dim row As New Dictionary(Of String, String)
                 For Each dc As DataColumn In configtable.Columns
-                    MyLog(dc.ColumnName & ": " & configrow(dc.ColumnName))
+                    'MyLog(dc.ColumnName & ": " & configrow(dc.ColumnName))
                     row.Add(dc.ColumnName, configrow(dc.ColumnName))
                 Next
                 config = row

@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>3dc4a596-f148-495e-9d7d-40a468e34af0</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>wpContact Session Outlook Add-In</OutputName>
+    <OutputName>wpContacts Session Outlook Add-In</OutputName>
     <OutputType>Package</OutputType>
     <Name>wpContacts Session Outlook Add-In Setup</Name>
   </PropertyGroup>

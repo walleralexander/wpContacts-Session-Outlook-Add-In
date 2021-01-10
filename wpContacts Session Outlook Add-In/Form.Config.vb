@@ -1,13 +1,29 @@
 ﻿Imports System.Windows.Forms
 Imports System.IO.Path
 Public Class FormConfig
+
+    '### LIZENZ / LICENSE https://github.com/walleralexander/wpContacts-Session-Outlook-Add-In/blob/master/LICENSE.txt
+
+    '    Copyright(C) 2021  Alexander Waller
+    '
+    '    This program Is free software: you can redistribute it And/Or modify
+    '    it under the terms Of the GNU Affero General Public License As
+    '    published by the Free Software Foundation, either version 3 Of the
+    '    License, Or (at your option) any later version.
+    '
+    '    This program Is distributed In the hope that it will be useful,
+    '    but WITHOUT ANY WARRANTY; without even the implied warranty Of
+    '    MERCHANTABILITY Or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    '    GNU Affero General Public License For more details.
+    '
+    '    You should have received a copy Of the GNU Affero General Public License
+    '    along with this program.  If Not, see < https: //www.gnu.org/licenses/>.
+
     Public isConfigured As Boolean = False
-
-
     Private Sub ConfigForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MyLog("### CONFIGFORM-LOAD start")
         Me.KeyPreview = vbTrue
-        Me.Text = "Konfiguration - wpContacts Session Outlook-Plug-In"
+        Me.Text = "Konfiguration - wpContacts Session Outlook Plug-In"
         lblXMLStatus.Text = ""
         tbSQLDataSource.Text = My.Settings.SQLDataSource
         tbSQLInitialCatalog.Text = My.Settings.SQLInitialCatalog
@@ -196,4 +212,5 @@ Public Class FormConfig
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
         Me.Close()
     End Sub
+
 End Class

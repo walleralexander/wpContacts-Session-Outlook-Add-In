@@ -6,18 +6,37 @@ Imports System.Reflection
 '### https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.distlistitem?view=outlook-pia
 
 Public Class WpContactsRibbon1
+
+    '### LIZENZ / LICENSE https://github.com/walleralexander/wpContacts-Session-Outlook-Add-In/blob/master/LICENSE.txt
+
+    '    Copyright(C) 2021  Alexander Waller
+    '
+    '    This program Is free software: you can redistribute it And/Or modify
+    '    it under the terms Of the GNU Affero General Public License As
+    '    published by the Free Software Foundation, either version 3 Of the
+    '    License, Or (at your option) any later version.
+    '
+    '    This program Is distributed In the hope that it will be useful,
+    '    but WITHOUT ANY WARRANTY; without even the implied warranty Of
+    '    MERCHANTABILITY Or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    '    GNU Affero General Public License For more details.
+    '
+    '    You should have received a copy Of the GNU Affero General Public License
+    '    along with this program.  If Not, see < https: //www.gnu.org/licenses/>.
+
     Private Sub Ribbon1_Load(ByVal sender As System.Object, ByVal e As RibbonUIEventArgs) Handles MyBase.Load
         Dim sqlok As Boolean = False
         Dim outlookok As Boolean = False
         MyLog("### RIBBONLOAD start")
         Try
             My.Settings.isConfigured = False
+            '### check if wpconfig environment var is set and update my.settings.NetworkConfigStore
             SetNetworkConfigPath()
             sqlok = SqlTestConnection(My.Settings.SQLDataSource, My.Settings.SQLInitialCatalog, My.Settings.SQLUserID, My.Settings.SQLPassword)
             outlookok = CheckOutlookFolderExists(My.Settings.OlFolder)
             If sqlok = True And outlookok = True Then My.Settings.isConfigured = True
             My.Settings.Save()
-            ListSettings()
+            'ListSettings()
 
             If My.Settings.isConfigured = True Then
                 BtnUpdate.Enabled = True
@@ -28,9 +47,12 @@ Public Class WpContactsRibbon1
                 AnzOutlookKontakte.Text = My.Settings.AnzOutlookKontakte
                 lblKontakteordner.Label = My.Settings.OlFolder
             Else
+                MyLog("Ribbon1_Load: isConfigured = false")
+                '### try and get config from NetworkConfigStore
                 LoadNetworkConfiguration()
                 CreateOutlookFolder(My.Settings.OlFolder)
                 BtnUpdate.Enabled = True
+                lblKontakteordner.Label = "Bitte konfigurieren!"
             End If
         Catch ex As Exception
             MyLog($"Ribbon1_Load: {ex.Message}", "error")
@@ -94,7 +116,7 @@ Public Class WpContactsRibbon1
         Try
 
             If IO.File.Exists(configfile) Then
-
+                MyLog($"LoadNetworkConfiguration: Reading config from {configfile}")
                 Dim config As Dictionary(Of String, String) = ReadConfigFromXML(configfile)
                 My.Settings.SQLDataSource = config("SQLDataSource")
                 My.Settings.SQLInitialCatalog = config("SQLInitialCatalog")
@@ -103,11 +125,11 @@ Public Class WpContactsRibbon1
                 My.Settings.OlContactGroupPrefix = config("olContactGroupPrefix")
                 My.Settings.OlFolder = config("olFolder")
             Else
-                MyLog($"NetworkConfig not found: {configfile}")
+                MyLog($"LoadNetworkConfiguration: NetworkConfig not found: {configfile}")
             End If
             Return True
         Catch ex As Exception
-            MyLog($"Error LoadNetworkConfiguration: {ex.Message} {configfile}", "error")
+            MyLog($"LoadNetworkConfiguration: {ex.Message} {configfile}", "error")
             Return False
         End Try
     End Function

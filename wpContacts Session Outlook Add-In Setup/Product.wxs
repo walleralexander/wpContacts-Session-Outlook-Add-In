@@ -35,7 +35,8 @@
              InstallScope="perMachine"  
              Description="$(var.ProductName)"
              Keywords="WebPoint Waller Alexander wpContacts Session Outlook Add-In" 
-             Comments="Version $(var.ProductVersion)"  />
+             Comments="Version $(var.ProductVersion)"  
+             Platform="x64" />
           <!--"Outlook Add-In um Kontakte und Verteiler aus einer Session-Datenbank in einem Outlook-Ordner anzulegen"-->
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."
                   Schedule="afterInstallInitialize"
@@ -55,9 +56,10 @@
     </Directory>
 
     <!-- Step 2: Add files to your installer package -->
-    <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+    <DirectoryRef Id="APPLICATIONROOTDIRECTORY" >
       <!-- HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\Outlook\Addins -->
       <!-- HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Office\Outlook\Addins -->
+      <!--<Component Id="RegistryEntries" Guid="*" Win64="yes">-->
       <Component Id="RegistryEntries" Guid="*">
         <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Office\Outlook\Addins">
           <RegistryKey Key="wpContacts-Session-Outlook-Add-In" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
@@ -67,6 +69,15 @@
             <RegistryValue Type="string" Name="Manifest" Value="[APPLICATIONROOTDIRECTORY]wpContacts-Session-Outlook-Add-In.vsto|vstolocal" />
           </RegistryKey>
         </RegistryKey>
+        <!--<RegistryKey Root="HKLM" Key="SOFTWARE\Wow6432Node\Microsoft\Office\Outlook\Addins">
+          <RegistryKey Key="wpContacts-Session-Outlook-Add-In" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
+            <RegistryValue Type="string" Name="FriendlyName" Value="wpContacts Session Outlook Add-In" />
+            <RegistryValue Type="string" Name="Description" Value="Outlook Add-in zum Syncronisieren von Kontakten mit der Session-Datenbank" />
+            <RegistryValue Type="integer" Name="LoadBehavior" Value="3" />
+            <RegistryValue Type="string" Name="Manifest" Value="[APPLICATIONROOTDIRECTORY]wpContacts-Session-Outlook-Add-In.vsto|vstolocal" />
+          </RegistryKey>
+        </RegistryKey>-->
+
       </Component>
     </DirectoryRef>
     
@@ -143,3 +154,4 @@
     </ComponentGroup>
   </Fragment>
 </Wix>
+

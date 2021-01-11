@@ -9,13 +9,13 @@ Projekte wpContacts Session Outlook-Add-In
 WIX-Plugin
 https://marketplace.visualstudio.com/items?itemName=WixToolset.WixToolsetVisualStudio2019Extension
 
-WIX
+### WIX
 https://github.com/wixtoolset/wix3/releases
 
-WAX
+### WAX
 https://marketplace.visualstudio.com/items?itemName=TomEnglert.Wax
 
-log4net
+### log4net
 via NUGET reinstall log4net
 https://logging.apache.org/log4net/
 

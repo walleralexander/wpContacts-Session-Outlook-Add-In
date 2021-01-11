@@ -48,7 +48,7 @@
    
     <!-- Step 1: Define the directory structure -->
     <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
+      <Directory Id="ProgramFiles64Folder">
         <Directory Id="ManufacturerFolder" Name="!(bind.property.Manufacturer)">
           <Directory Id="APPLICATIONROOTDIRECTORY" Name="wpContacts Session Outlook Add-In" />
         </Directory>
@@ -60,7 +60,7 @@
       <!-- HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\Outlook\Addins -->
       <!-- HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Office\Outlook\Addins -->
       <!--<Component Id="RegistryEntries" Guid="*" Win64="yes">-->
-      <Component Id="RegistryEntries" Guid="*">
+      <Component Id="RegistryEntries" Guid="*" Win64="yes">
         <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Office\Outlook\Addins">
           <RegistryKey Key="wpContacts-Session-Outlook-Add-In" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
             <RegistryValue Type="string" Name="FriendlyName" Value="wpContacts Session Outlook Add-In" KeyPath="yes" />
@@ -90,63 +90,63 @@
   </Product>
   
   <Fragment>
-    <ComponentGroup Id="APPLICATIONROOTDIRECTORY_files" Directory="APPLICATIONROOTDIRECTORY">
-      <Component Id="wpContacts_Session_Outlook_Add_In.vsto" Guid="*">
+    <ComponentGroup Id="APPLICATIONROOTDIRECTORY_files" Directory="APPLICATIONROOTDIRECTORY" >
+      <Component Id="wpContacts_Session_Outlook_Add_In.vsto" Guid="*" Win64="yes">
         <File Id="wpContacts_Session_Outlook_Add_In.vsto"
               Name="wpContacts-Session-Outlook-Add-In.vsto"
               Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.vsto" />
       </Component>
-      
-      <Component Id="wpContacts_Session_Outlook_Add_In.dll.manifest" Guid="*">
+
+      <Component Id="wpContacts_Session_Outlook_Add_In.dll.manifest" Guid="*" Win64="yes">
         <File Id="wpContacts_Session_Outlook_Add_In.dll.manifest"
               Name="wpContacts-Session-Outlook-Add-In.dll.manifest"
               Source="$(var.wpContacts Session Outlook Add-In.TargetDir)\wpContacts-Session-Outlook-Add-In.dll.manifest" />
       </Component>
 
-      <Component Id="wpContacts_Session_Outlook_Add_In.dll" Guid="e5e9a0ba-e041-4d24-9b74-c7c066acd78f">
-        <File Id="wpContacts_Session_Outlook_Add_In.dll" 
-              Name="wpContacts-Session-Outlook-Add-In.dll" 
+      <Component Id="wpContacts_Session_Outlook_Add_In.dll" Guid="e5e9a0ba-e041-4d24-9b74-c7c066acd78f" Win64="yes">
+        <File Id="wpContacts_Session_Outlook_Add_In.dll"
+              Name="wpContacts-Session-Outlook-Add-In.dll"
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)wpContacts-Session-Outlook-Add-In.dll"
-              KeyPath="yes" 
+              KeyPath="yes"
               Checksum="yes"/>
       </Component>
-      
-      <Component Id="wpContacts_Session_Outlook_Add_In.dll.config" Guid="4b59e562-bb8a-4455-8b12-a9f3b7661274">
-        <File Id="wpContacts_Session_Outlook_Add_In.dll.config" 
-              Name="wpContacts-Session-Outlook-Add-In.dll.config" 
+
+      <Component Id="wpContacts_Session_Outlook_Add_In.dll.config" Guid="4b59e562-bb8a-4455-8b12-a9f3b7661274" Win64="yes">
+        <File Id="wpContacts_Session_Outlook_Add_In.dll.config"
+              Name="wpContacts-Session-Outlook-Add-In.dll.config"
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)wpContacts-Session-Outlook-Add-In.dll.config" />
       </Component>
 
-      <Component Id="log4net.dll" Guid="930059b0-e1a4-44d9-8d08-b14f51c943ea">
+      <Component Id="log4net.dll" Guid="930059b0-e1a4-44d9-8d08-b14f51c943ea" Win64="yes">
         <File Id="log4net.dll"
               Name="log4net.dll"
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)log4net.dll" />
       </Component>
 
-      <Component Id="config.log4net" Guid="*">
+      <Component Id="config.log4net" Guid="*" Win64="yes">
         <File Id="config.log4net"
               Name="config.log4net"
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)config.log4net" />
       </Component>
 
-      <Component Id="Microsoft.Exchange.WebServices.dll" Guid="1f308658-5e79-4220-a1e5-0ece4333c69d">
-        <File Id="Microsoft.Exchange.WebServices.dll" 
-              Name="Microsoft.Exchange.WebServices.dll" 
+      <Component Id="Microsoft.Exchange.WebServices.dll" Guid="1f308658-5e79-4220-a1e5-0ece4333c69d" Win64="yes">
+        <File Id="Microsoft.Exchange.WebServices.dll"
+              Name="Microsoft.Exchange.WebServices.dll"
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)Microsoft.Exchange.WebServices.dll" />
       </Component>
-      
-      <Component Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" Guid="6976751f-262f-47ab-bed4-eada46309ea2">
-        <File Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" 
-              Name="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" 
+
+      <Component Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" Guid="6976751f-262f-47ab-bed4-eada46309ea2" Win64="yes">
+        <File Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll"
+              Name="Microsoft.Office.Tools.Common.v4.0.Utilities.dll"
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)Microsoft.Office.Tools.Common.v4.0.Utilities.dll" />
       </Component>
-      
-      <Component Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" Guid="d5381e99-0e15-42b7-8f7b-95d142a8f10f">
-        <File Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" 
-              Name="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" 
+
+      <Component Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" Guid="d5381e99-0e15-42b7-8f7b-95d142a8f10f" Win64="yes">
+        <File Id="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll"
+              Name="Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll"
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)Microsoft.Office.Tools.Outlook.v4.0.Utilities.dll" />
       </Component>
-      <Component Id="LICENSE.txt" Guid="19475BC6-163B-4CEC-8115-D288C655A9FE">
+      <Component Id="LICENSE.txt" Guid="19475BC6-163B-4CEC-8115-D288C655A9FE" Win64="yes">
         <File Id="LICENSE.txt"
               Name="LICENSE.txt"
               Source="$(var.SolutionDir)LICENSE.txt" />

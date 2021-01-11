@@ -5,7 +5,7 @@ Projekte wpContacts Session Outlook-Add-In
 
 - Funktion/Ablauf
 
-### - Abhängigkeiten
+- Abhängigkeiten
 WIX-Plugin
 https://marketplace.visualstudio.com/items?itemName=WixToolset.WixToolsetVisualStudio2019Extension
 

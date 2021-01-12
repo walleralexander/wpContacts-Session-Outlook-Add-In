@@ -1,5 +1,5 @@
 # wpContacts-Session-Outlook-Add-In
-Projekte wpContacts Session Outlook-Add-In
+Projekt wpContacts Session Outlook-Add-In
 
 ## Zweck
 Das Add-In für Outlook 2016/2019 syncronisiert die Daten der Mandatare und Mitarbeiter in einen Outlook-Ordner im Standard-Postfach.

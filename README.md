@@ -14,21 +14,15 @@ Für alle Gremien werden Verteilerlisten angelegt.
 ## Abhängigkeiten
 
 1. Microsoft Exchange Web Services Managed API 2.2
-
 https://www.microsoft.com/en-us/download/details.aspx?id=42951
 
 2. log4net 
-
 https://logging.apache.org/log4net/
-
 via NUGET: reinstall log4net
 
 3. WiX Toolset
-
 https://github.com/wixtoolset/wix3/releases
-
 Homepage: https://wixtoolset.org/
-
 THE MOST POWERFUL SET OF TOOLS AVAILABLE TO CREATE YOUR WINDOWS INSTALLATION EXPERIENCE.
 
 4. WIX-Plugin

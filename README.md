@@ -33,6 +33,7 @@ https://marketplace.visualstudio.com/items?itemName=TomEnglert.Wax
 
 ## Installation
 Mit WiX Toolset wird ein MSI-Paket erzeugt und kann als Administrator installiert werden.
+Den Pfad zur zentralen Konfiguration setzt man mit der Umgebungsvariable "wpconfig".
 
 ## Update und Deinstallation
 Das MSI prüft ob eine Version installiert ist und aktualisiert diese.

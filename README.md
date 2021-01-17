@@ -13,22 +13,19 @@ Für alle Gremien werden Verteilerlisten angelegt.
 
 ## Abhängigkeiten
 
-1. Microsoft Exchange Web Services Managed API 2.2
-https://www.microsoft.com/en-us/download/details.aspx?id=42951
-
-2. log4net 
+1. log4net 
 https://logging.apache.org/log4net/
 via NUGET: reinstall log4net
 
-3. WiX Toolset
+2. WiX Toolset
 https://github.com/wixtoolset/wix3/releases
 Homepage: https://wixtoolset.org/
 THE MOST POWERFUL SET OF TOOLS AVAILABLE TO CREATE YOUR WINDOWS INSTALLATION EXPERIENCE.
 
-4. WIX-Plugin
+3. WIX-Plugin
 https://marketplace.visualstudio.com/items?itemName=WixToolset.WixToolsetVisualStudio2019Extension
 
-5. WAX (optional)
+4. WAX (optional)
 https://marketplace.visualstudio.com/items?itemName=TomEnglert.Wax
 
 ## Installation
@@ -45,6 +42,9 @@ Deinstalliert wird das Add-In über die Systemsteuerung.
 Es ist möglich eine Konfiguration auf eine zentrale Share abzulegen. 
 Der Name der Datei muss wpContacts-Session-Outlook-Addin.xml sein.
 Mit einer **Umgebungsvariable** kann eingestellt werden auf welchem Pfad diese Datei zu finden ist.
+
+* wpdebug
+Wird die Umgebungsvariable wpdebug=1 ist das Logging etwas ausführlicher.
 
 * Das Löschen der Kontakte dauert länger als notwendig, da es keine Möglichkeit gibt alle Kontakte auf einmal zu löschen.
 

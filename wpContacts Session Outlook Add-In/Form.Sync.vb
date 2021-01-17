@@ -76,7 +76,10 @@ Public Class FormSync
             lblSyncStatus.Text = "Die Kontakte wurden erfolgreich syncronisiert!"
             btnClose.Text = "Schließen"
         Catch ex As Exception
-            MyLog($"ERROR: {ex.Message}", "error")
+            MyError(ex, "RunSync")
+            'MyLog($"RunSync: {ex.Message}", "error")
+            'MyLog($"RunSync: {ex.InnerException}", "error")
+            'MyLog($"RunSync: {ex.Source}", "error")
             Cursor.Current = Cursors.Default
             lblSyncStatus.Text = ex.Message
             btnClose.Text = "Schließen"
@@ -109,7 +112,8 @@ Public Class FormSync
                 liste = Nothing
             Next
         Catch ex As Exception
-            MyLog($"OL dele ERROR: {ex.Message} {ex.Source} {ex.InnerException}")
+            MyError(ex, "OL dele")
+            'MyLog($"OL dele ERROR: {ex.Message} {ex.Source} {ex.InnerException}")
             Return False
         End Try
         MyLog("Gelöscht " & (i - 1).ToString & " von " & anzOutlookItems & " K:" & x & "/G:" & y)
@@ -117,162 +121,281 @@ Public Class FormSync
     End Function
     Sub MakeMandatare(ByRef SessionContacts, ByRef olMandatare)
         Dim cContacts As Integer = 0
-        pgbReadContactsFromSession.Maximum = SessionContacts.rows.count()
-        For Each person As DataRow In SessionContacts.Rows
-            cContacts += 1
-            Dim myDisplayname As String = ""
-            If Clean(person("adakgrad")).ToString.Length > 0 Then myDisplayname &= Clean(person("adakgrad")) & " "
-            If Clean(person("adtit")).ToString.Length > 0 Then myDisplayname &= Clean(person("adtit")) & " "
-            myDisplayname &= Clean(person("advname")) & " " & Clean(person("adname"))
-            If Clean(person("adtitn")).ToString.Length > 0 Then myDisplayname &= " " & Clean(person("adtitn"))
+        Try
+            pgbReadContactsFromSession.Maximum = SessionContacts.rows.count()
+            For Each person As DataRow In SessionContacts.Rows
+                cContacts += 1
 
-            '### ToDo change webservices.data.stringlist with dictionary??
-            Dim myCategories As StringList = New StringList From {Clean(person("pepartei"))}
+                Dim myDisplayname As String = ""
+                If Clean(person("adakgrad")).ToString.Length > 0 Then myDisplayname &= Clean(person("adakgrad")) & " "
+                If Clean(person("adtit")).ToString.Length > 0 Then myDisplayname &= Clean(person("adtit")) & " "
+                myDisplayname &= Clean(person("advname")) & " " & Clean(person("adname"))
+                If Clean(person("adtitn")).ToString.Length > 0 Then myDisplayname &= " " & Clean(person("adtitn"))
+                MyLog("--------------------------------------------------------------------------------------------")
+                MyLog($"Mandatar: {myDisplayname}")
 
-            Dim myFirma As String
-            If Clean(person("adfirma1")) = "a" Then myFirma = "" Else myFirma = Clean(person("adfirma1"))
+                '### ToDo change webservices.data.stringlist with dictionary??
+                Dim myCategories As StringList = New StringList From {Clean(person("pepartei"))}
 
-            Dim myBody As String = "Partei: " & Clean(person("pepartei")) & vbCrLf
-            myBody &= "Sessionnet-Benutzername: " & Clean(person("pesch")) & vbCrLf
-            myBody &= "PRID: " & Clean(person("peid")) & vbCrLf
-            '### TODO .Birthday = 
+                Dim myFirma As String
+                If Clean(person("adfirma1")) = "a" Then myFirma = "" Else myFirma = Clean(person("adfirma1"))
 
-            'MyLog($"OL cont new {cContacts} {myDisplayname}")
-            Dim newContact As Outlook.ContactItem = olMandatare.Items.Add(Outlook.OlItemType.olContactItem)
-            Dim email1 As String = CStr(Clean(person("ademail")))
-            Dim email2 As String = CStr(Clean(person("ademail2")))
-            If email1.Length > 0 Then newContact.Email1Address = email1
-            If email2.Length > 0 Then newContact.Email2Address = email2
+                '### BODY start ###
 
-            With newContact
-                .LastName = Clean(person("adname"))
-                .FirstName = Clean(person("advname"))
-                .CompanyName = myFirma
-                .FullName = myDisplayname
-                .Title = Clean(person("adakgrad"))
-                .Department = Clean(person("adabt"))
-                .JobTitle = Clean(person("adberuf"))
-                .Profession = Clean(person("adpos"))
-                .BusinessHomePage = Clean(person("adweb"))
-                .Categories = myCategories.ToString
-                .Body = myBody
-                .BusinessTelephoneNumber = Clean(person("adtel"))
-                .HomeTelephoneNumber = Clean(person("adtel2"))
-                .BusinessFaxNumber = Clean(person("adtel3"))
-                .HomeFaxNumber = Clean(person("adtel4"))
-                .MobileTelephoneNumber = Clean(person("adtel5"))
-                .Home2TelephoneNumber = Clean(person("adtel6"))
-                .BusinessAddressCity = Clean(person("adort"))
-                '.BusinessAddressCountry
-                .BusinessAddressPostalCode = Clean(person("adplz"))
-                '.BusinessAddressPostOfficeBox
-                '.BusinessAddressState
-                .BusinessAddressStreet = Clean(person("adstr")) & " " & Clean(person("adhnr"))
-                '.Gender
-                '.GovernmentIDNumber
-                '.Birthday
-            End With
-            newContact.Save()
-            pgbReadContactsFromSession.Value = cContacts
-            lblPgmSessionContacts.Text = cContacts
+                Dim myzimmer As String = Clean(person("sbzim"))
+                Dim mysbaktiv As String = Clean(person("sbaktiv"))
+                Dim mysbatnr As String = Clean(person("sbatnr"))
+                Dim mybereich As String = Clean(person("atname"))
+                Dim mymodified As String = Clean(person("admodified"))
+                Dim myBody As String = "Mitarbeit: " & Clean(person("pepartei")) & vbCrLf
+                myBody &= "Sessionnet-Benutzername: " & Clean(person("pesch")) & vbCrLf
+                'myBody &= "PRID: " & Clean(person("peid")) & vbCrLf
+
+                If mysbaktiv = "1" Then
+                    myBody &= vbCrLf
+                    myBody &= "Bearbeiter" & vbCrLf
+                    myBody &= "Zimmer: " & myzimmer & vbCrLf
+                    myBody &= "Bereich: " & mybereich & vbCrLf
+                End If
+
+                myBody &= vbCrLf
+                Dim myGremien As DataTable = GetMyGremien(person("adnr"))
+                Dim myadat As String
+                Dim myedat As String
+                Dim enddate As String = ""
+                Dim enddate2 As Date
+                Dim startdate As String = ""
+                Dim startdate2 As Date
+                Dim zerodate As DateTime = #1/1/1900 01:00:00 AM#
+                Dim myperiode As String = ""
+                Dim myp As String = "0"
+
+                myBody &= $"Mitglied in {myGremien.Rows.Count} Gremien" & vbCrLf
+                For Each myGremium As DataRow In myGremien.Rows
+                    myadat = Clean(myGremium("mgadat"))
+                    myedat = Clean(myGremium("mgedat"))
+                    Dim adays As Integer
+                    Dim edays As Integer
+                    Try
+                        If myadat > 0 Then
+                            adays = myadat - 2415019 - 2
+                            startdate = zerodate.AddDays(adays)
+                        Else
+                            adays = 0
+                            startdate = ""
+                        End If
+                        If myedat > 0 Then
+                            edays = myedat - 2415019 - 2
+                            enddate = zerodate.AddDays(edays)
+                        Else
+                            edays = 0
+                            enddate = ""
+                        End If
+                        If startdate.Length > 0 And enddate.Length > 0 Then
+                            startdate2 = startdate
+                            enddate2 = enddate
+                            myperiode = startdate2.ToString("d") & " bis " & enddate2.ToString("d")
+                            myp = 1
+                        ElseIf startdate.Length > 0 And enddate.Length = 0 Then
+                            startdate2 = startdate
+                            myperiode = startdate2.ToString("d") & " bis heute"
+                            myp = 2
+                        ElseIf startdate.Length = 0 And enddate.Length > 0 Then
+                            enddate2 = enddate
+                            myperiode = "bis " & enddate2.ToString("d")
+                            myp = 3
+                        End If
+                    Catch ex As Exception
+                        MyError(ex, "CalcStartEndDate")
+                    Finally
+                        MyLog($"gremium: {myGremium("grname")}")
+                        MyLog($"myadat: {myadat} myedat: {myedat}")
+                        'MyLog($"adays: {adays} edays: {edays}")
+                        'MyLog($"startdate: {startdate} enddate: {enddate}")
+                        MyLog($"myperiode: {myperiode} {myp}")
+                    End Try
+                    myBody &= Clean(myGremium("grname")) & " " & Clean(myGremium("mgfunk")) & vbCrLf
+                    'myBody &= myGremium("grname") & " " & myGremium("mgfunk") & " " & vbCrLf
+                    'myBody &= myGremium("mgadat") & " " & myGremium("mgedat") & " " & vbCrLf
+                    'myBody &= myadat & " " & myedat & " " & vbCrLf
+                    'myBody &= startdate & " " & enddate & " " & vbCrLf
+                    myBody &= myperiode & vbCrLf
+                    'myBody &= vbCrLf
+                Next
+
+                myBody &= vbCrLf
+                myBody &= "Geändert: " & mymodified & vbCrLf
+                '### BODY end ###
+
+                'MyLog($"OL cont New {cContacts} {myDisplayname}")
+                Dim newContact As Outlook.ContactItem = olMandatare.Items.Add(Outlook.OlItemType.olContactItem)
+                Dim email1 As String = CStr(Clean(person("ademail")))
+                Dim email2 As String = CStr(Clean(person("ademail2")))
+                If email1.Length > 0 Then newContact.Email1Address = email1
+                If email2.Length > 0 Then newContact.Email2Address = email2
+
+                Dim mytitel As String = ""
+                Dim adakgrad As String = Clean(person("adakgrad"))
+                Dim adtit As String = Clean(person("adtit"))
+                Dim adtitn As String = Clean(person("adtitn"))
+
+                If adakgrad.Length > 0 And adtit.Length > 0 Then
+                    mytitel = adakgrad & " " & adtit
+                ElseIf adakgrad.Length > 0 Then
+                    mytitel = adakgrad
+                ElseIf adtit.Length > 0 Then
+                    mytitel = adtit
+                End If
+
+                Dim mygender As String = Clean(person("anname"))
+                Dim mygender2 As Outlook.OlGender = Outlook.OlGender.olUnspecified
+                If mygender = "Frau" Then
+                    mygender2 = Outlook.OlGender.olFemale
+                ElseIf mygender = "Herr" Then
+                    mygender2 = Outlook.OlGender.olMale
+                End If
+
+                With newContact
+                    .LastName = Clean(person("adname"))
+                    .FirstName = Clean(person("advname"))
+                    .CompanyName = myFirma
+                    .FullName = myDisplayname
+                    .Title = mytitel
+                    .Suffix = adtitn
+                    .Department = Clean(person("adabt"))
+                    .JobTitle = Clean(person("adberuf"))
+                    .Profession = Clean(person("adpos"))
+                    .Categories = myCategories.ToString
+
+                    .HomeTelephoneNumber = Clean(person("adtel2"))
+                    .HomeFaxNumber = Clean(person("adtel4"))
+                    .Home2TelephoneNumber = Clean(person("adtel6"))
+
+                    .MobileTelephoneNumber = Clean(person("adtel5"))
+
+                    .BusinessAddressCity = Clean(person("adort"))
+                    .BusinessAddressCountry = Clean(person("adnat"))
+                    .BusinessAddressPostalCode = Clean(person("adplz"))
+                    '.BusinessAddressPostOfficeBox
+                    '.BusinessAddressState
+                    .BusinessAddressStreet = Clean(person("adstr")) & " " & Clean(person("adhnr"))
+                    .BusinessTelephoneNumber = Clean(person("adtel"))
+                    .BusinessFaxNumber = Clean(person("adtel3"))
+                    .BusinessHomePage = Clean(person("adweb"))
+                    .Gender = mygender2
+                    '.GovernmentIDNumber
+                    '.Birthday
+
+                    .Body = myBody
+
+                End With
+                newContact.Save()
+                pgbReadContactsFromSession.Value = cContacts
+                lblPgmSessionContacts.Text = cContacts
+                Refresh()
+            Next
+            My.Settings.AnzOutlookKontakte = cContacts
+            My.Settings.Save()
             Refresh()
-        Next
-        My.Settings.AnzOutlookKontakte = cContacts
-        My.Settings.Save()
-        Refresh()
+        Catch ex As Exception
+            MyError(ex, "MakeMandatare")
+        End Try
     End Sub
     Sub MakeGremien(ByRef SessionGremien As DataTable, ByRef olMandatare As Outlook.MAPIFolder)
         '######
         '### Gremien
         '######
+        Try
+            Dim cGremien As Integer
+            Dim olContactGroupName As String
+            Dim outlookObj As Outlook._Application = New Outlook.Application
+            Dim contactFolder As Outlook.MAPIFolder = outlookObj.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderContacts)
+            Dim olContactGroupPrefix As String = My.Settings.OlContactGroupPrefix
+            My.Settings.AnzOutlookVerteiler = 0
 
-        Dim cGremien As Integer
-        Dim olContactGroupName As String
-        Dim outlookObj As Outlook._Application = New Outlook.Application
-        Dim contactFolder As Outlook.MAPIFolder = outlookObj.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderContacts)
-        Dim olContactGroupPrefix As String = My.Settings.OlContactGroupPrefix
-        My.Settings.AnzOutlookVerteiler = 0
+            For Each gremium As DataRow In SessionGremien.Rows
+                cGremien += 1
+                Dim grNr As Int16 = gremium("grnr")
+                Dim grKurz As String = gremium("grkurz").ToString.Trim
+                Dim grName As String = gremium("grname").ToString.Trim
+                Dim grArt As String = gremium("txname").ToString.Trim
+                If grName.Length > 20 Then grName = grKurz
+                If grName = "" Then grName = "Kurzname fehlt"
+                olContactGroupName = olContactGroupPrefix & " " & grArt & " " & grName
+                MyLog($"NEU Verteiler {cGremien} von {SessionGremien.Rows.Count} '{olContactGroupName}'")
+                Dim myGremium As DataTable = ReadOneGremiumFromSession(grNr)
+                MyLog($"members: {myGremium.Rows.Count}")
 
-        For Each gremium As DataRow In SessionGremien.Rows
-            cGremien += 1
-            Dim grNr As Int16 = gremium("grnr")
-            Dim grKurz As String = gremium("grkurz").ToString.Trim
-            Dim grName As String = gremium("grname").ToString.Trim
-            Dim grArt As String = gremium("txname").ToString.Trim
-            If grName.Length > 20 Then grName = grKurz
-            If grName = "" Then grName = "Kurzname fehlt"
-            olContactGroupName = olContactGroupPrefix & " " & grArt & " " & grName
-            MyLog($"NEU Verteiler {cGremien} von {SessionGremien.Rows.Count} '{olContactGroupName}'")
-            Dim myGremium As DataTable = ReadOneGremiumFromSession(grNr)
-            MyLog($"members: {myGremium.Rows.Count}")
-
-            Try
-                Dim newContactGroup As Outlook.DistListItem = Nothing
                 Try
-                    newContactGroup = olMandatare.Items.Add(Outlook.OlItemType.olDistributionListItem)
-                    newContactGroup.Subject = olContactGroupName
-                Catch ex As Exception
-                    MyLog($"OL gr new group: {ex.Message} {olContactGroupName}")
-                End Try
-                Dim newContactGroupErsatz As Outlook.DistListItem = Nothing
-                Try
-                    newContactGroupErsatz = olMandatare.Items.Add(Outlook.OlItemType.olDistributionListItem)
-                    newContactGroupErsatz.Subject = olContactGroupName & " Ersatzmitglieder"
-                Catch ex As Exception
-                    MyLog($"OL gr new groupersatz: {ex.Message} {olContactGroupName}")
-                End Try
-                Dim cNormal As Int16
-                Dim cErsatz As Int16
-                MyLog("adding members now")
-                For Each row As DataRow In myGremium.Rows
-                    Dim myName As String
-                    myName = row("adname").ToString.Trim & " " & row("advname").ToString.Trim
-                    myName &= " [" & row("amname").ToString.Trim & "] " & row("pepartei").ToString.Trim
-                    myName &= row("mgfunk").ToString.Trim
-                    Dim myEmail As String = row("ademail").ToString.Trim
-                    If myEmail.Length > 0 Then
-                        Try
-                            Dim myDisplayName As String = myName & " (" & myEmail & ")"
-                            Dim newrecipient As Outlook.Recipient = outlookObj.Session.CreateRecipient(myDisplayName)
-                            newrecipient.Resolve()
-                            Select Case row("amname").ToString.Trim
-                                Case "Ordentliches Mitglied", "Zuhörer", "Vorsitz", "Geschäftsführer"
-                                    cNormal += 1
-                                    newContactGroup.AddMember(newrecipient)
-                                Case "Ersatzmitglied", "Zuhörer Ersatzmitglied"
-                                    cErsatz += 1
-                                    newContactGroupErsatz.AddMember(newrecipient)
-                            End Select
-                        Catch ex As Exception
-                            MyLog($"OL gr add ERROR: {ex.Message} {olContactGroupName} {myName}", "error")
-                        End Try
-                    End If
-                Next
-                Try
-                    newContactGroup.Save()
-                    My.Settings.AnzOutlookVerteiler += 1
-
-
-                    If cErsatz > 0 Then
-                        newContactGroupErsatz.Save()
+                    Dim newContactGroup As Outlook.DistListItem = Nothing
+                    Try
+                        newContactGroup = olMandatare.Items.Add(Outlook.OlItemType.olDistributionListItem)
+                        newContactGroup.Subject = olContactGroupName
+                    Catch ex As Exception
+                        MyLog($"OL gr new group: {ex.Message} {olContactGroupName}")
+                    End Try
+                    Dim newContactGroupErsatz As Outlook.DistListItem = Nothing
+                    Try
+                        newContactGroupErsatz = olMandatare.Items.Add(Outlook.OlItemType.olDistributionListItem)
+                        newContactGroupErsatz.Subject = olContactGroupName & " Ersatzmitglieder"
+                    Catch ex As Exception
+                        MyLog($"OL gr new groupersatz: {ex.Message} {olContactGroupName}")
+                    End Try
+                    Dim cNormal As Int16
+                    Dim cErsatz As Int16
+                    MyLog("adding members now")
+                    For Each row As DataRow In myGremium.Rows
+                        Dim myName As String
+                        myName = row("adname").ToString.Trim & " " & row("advname").ToString.Trim
+                        myName &= " [" & row("amname").ToString.Trim & "] " & row("pepartei").ToString.Trim
+                        myName &= row("mgfunk").ToString.Trim
+                        Dim myEmail As String = row("ademail").ToString.Trim
+                        If myEmail.Length > 0 Then
+                            Try
+                                Dim myDisplayName As String = myName & " (" & myEmail & ")"
+                                Dim newrecipient As Outlook.Recipient = outlookObj.Session.CreateRecipient(myDisplayName)
+                                newrecipient.Resolve()
+                                Select Case row("amname").ToString.Trim
+                                    Case "Ordentliches Mitglied", "Zuhörer", "Vorsitz", "Geschäftsführer"
+                                        cNormal += 1
+                                        newContactGroup.AddMember(newrecipient)
+                                    Case "Ersatzmitglied", "Zuhörer Ersatzmitglied"
+                                        cErsatz += 1
+                                        newContactGroupErsatz.AddMember(newrecipient)
+                                End Select
+                            Catch ex As Exception
+                                MyLog($"OL gr add ERROR: {ex.Message} {olContactGroupName} {myName}", "error")
+                            End Try
+                        End If
+                    Next
+                    Try
+                        newContactGroup.Save()
                         My.Settings.AnzOutlookVerteiler += 1
 
-                    End If
-                    pgbReadGremienFromSession.Value = cGremien
-                    lblPgmSessionGremien.Text = cGremien
-                    Refresh()
+
+                        If cErsatz > 0 Then
+                            newContactGroupErsatz.Save()
+                            My.Settings.AnzOutlookVerteiler += 1
+
+                        End If
+                        pgbReadGremienFromSession.Value = cGremien
+                        lblPgmSessionGremien.Text = cGremien
+                        Refresh()
+                    Catch ex As Exception
+                        MyLog($"OL gr new groupe saves: {ex.Message} {olContactGroupName}")
+                    End Try
                 Catch ex As Exception
-                    MyLog($"OL gr new groupe saves: {ex.Message} {olContactGroupName}")
+                    MyLog($"OL gr new: {ex.Message} {olContactGroupName}", "error")
+                    Exit Sub
                 End Try
-            Catch ex As Exception
-                MyLog($"OL gr new: {ex.Message} {olContactGroupName}", "error")
-                Exit Sub
-            End Try
-        Next
-        My.Settings.Save()
-        outlookObj = Nothing
-        contactFolder = Nothing
-        olContactGroupPrefix = Nothing
+            Next
+            My.Settings.Save()
+            outlookObj = Nothing
+            contactFolder = Nothing
+            olContactGroupPrefix = Nothing
+        Catch ex As Exception
+            MyError(ex, "MakeGremien")
+        End Try
     End Sub
 
     Private Sub FormSync_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown

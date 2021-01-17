@@ -267,6 +267,7 @@
     </None>
     <None Include="wpContacts Session Outlook Add-In_1_TemporaryKey.pfx" />
     <None Include="wpContacts Session Outlook Add-In_2_TemporaryKey.pfx" />
+    <None Include="wpContacts Session Outlook Add-In_3_TemporaryKey.pfx" />
     <None Include="wpContacts Session Outlook Add-In_TemporaryKey.pfx" />
     <None Include="wpContacts-olAddin.Designer.xml">
       <DependentUpon>wpContacts-olAddin.vb</DependentUpon>
@@ -367,10 +368,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>wpContacts Session Outlook Add-In_2_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>wpContacts Session Outlook Add-In_3_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>17F93F95B2F80260F36BF1CB464517F6C0DA00DE</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>7380EA335514739E2F86690FAEEB564826F752D0</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SetupBuild|AnyCPU'">
     <OutputPath>bin\SetupBuild\</OutputPath>

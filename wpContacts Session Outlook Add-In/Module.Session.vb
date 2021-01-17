@@ -19,6 +19,7 @@ Imports System.Data.SqlClient
 '    along with this program.  If Not, see < https: //www.gnu.org/licenses/>.
 
 Module SessionsModule
+    ReadOnly SessionDateOffset As Int32 = 2415019
     Function Clean(mystring As Object)
         Return mystring.ToString.Trim
     End Function
@@ -27,11 +28,13 @@ Module SessionsModule
         Dim tbl As DataTable = Nothing
         Try
             Dim Sql As String = "
-                select tad.*, tpe.*, tsb.*, tat.* from tad
+                select tad.*, tpe.*, tsb.*, tat.*, tan.* from tad
                 inner join tpe on tad.adnr = tpe.peadnr
                 inner join tsb on tsb.sbnr = tpe.pesbnr
                 inner join tat on tat.atnr = tsb.sbatnr
+                inner join tan on tan.annr = tad.adannr
                 where peedat = 0 and adnr > 0
+                order by tad.adname
                 "
             tbl = SqlFillDataTable(con, "SessionContacts", Sql)
             MyLog($"ReadContactsFromSession::OK:Tabelle 'tad' Contacts: {tbl.Rows.Count}")
@@ -78,6 +81,36 @@ Module SessionsModule
             MyLog($"ReadOneGremiumFromSession::Fehler: Tabelle 'tad' Message: {ex.Message}")
         End Try
         Return tbl
+    End Function
+    Public Function GetMyGremien(adnr As String) As DataTable
+        Dim tbl As DataTable = Nothing
+        ' SessionDateOffset = 2415019
+        ' mgadat = 2457122
+        ' diff = 42103
+        ' mgadat = 09.04.2015
+        Try
+            Dim Sql As String = "
+                select grname, grkurz, mgfunk, mgadat, mgedat, pepartei
+                    from tmg
+                    join tpe on tmg.mgpenr=tpe.penr
+                    join tgr on tmg.mggrnr=tgr.grnr
+                    where peadnr=" & adnr.ToString & "
+                    order by mgedat, mgadat, grname
+            "
+            'order by grname, mgadat
+            tbl = SqlFillDataTable2(Sql, "MyGremien")
+        Catch ex As Exception
+            MyError(ex, "GetMyGremien")
+        End Try
+        Return tbl
+    End Function
+    Public Function GetMyKategorien(adnr As String)
+        '# insert into ttx (txnr,txadat,txdef,txdef1,txdef2,txdef3,txdef4,txdef5,txdef6,txedat,txname,txsort,txtext,txtext1,txtyp,txwww,tx__nr,tx__typ,txcreated,txmodified) 
+        '  values(32, 2459123, 0, 0, 0, 0, 0, 0, 0, 0,'Amt (Mitarbeiter/intern)',0,' ',' ',0,16,0,891,'2020-09-30 09:39:37.6600000','2020-09-30 12:07:18.6933333');
+        '# insert into tgr 
+
+        ' tgr ist nicht relevant
+
     End Function
     Public Function SaveConfigToXML(myfile)
         Try

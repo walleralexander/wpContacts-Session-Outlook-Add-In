@@ -18,7 +18,7 @@
       <!-- How many log files should we keep? -->
       <maxSizeRollBackups value="2" />
       <!-- Roll to a new file when current one hits 1MB -->
-      <maximumFileSize value="1MB" />
+      <maximumFileSize value="32MB" />
       <staticLogFileName value="true" />
       <!-- The format of each line in the log -->
       <layout type="log4net.Layout.PatternLayout">

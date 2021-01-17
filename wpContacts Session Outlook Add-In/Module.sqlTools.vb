@@ -89,7 +89,7 @@ Module SqlToolsModule
     End Function
     Function SqlFillDataTable(ByRef con As SqlConnection, tablename As String, sql As String)
         Dim cleansql As String = sql.Replace("  ", "").Replace(vbCrLf, " ").Replace(vbTab, " ")
-        MyLog($"SqlFillDataTable2::info Tabelle '{tablename}' sql: {cleansql}")
+        MyLog($"SqlFillDataTable::info Tabelle '{tablename}' sql: {cleansql}")
         Dim myStep As Int16 = 0
         Dim myAnzRecords As Int16
         Dim myDatatable As DataTable = New DataTable()
@@ -97,10 +97,28 @@ Module SqlToolsModule
         Try
             myDatatable.TableName = tablename
             myAnzRecords = mySqlDataAdpter.Fill(myDatatable)
-            MyLog($"SqlFillDataTable2::info Tabelle '{tablename}' gelesen: {myAnzRecords} Datensätze")
+            MyLog($"SqlFillDataTable::info Tabelle '{tablename}' gelesen: {myAnzRecords} Datensätze")
         Catch ex As Exception
-            MyLog($"SqlFillDataTable2:Fehler Tabelle '{tablename}' Step: {myStep} Message: {ex.Message}")
+            MyLog($"SqlFillDataTable:Fehler Tabelle '{tablename}' Step: {myStep} Message: {ex.Message}")
         End Try
         Return myDatatable
     End Function
+    Function SqlFillDataTable2(sql As String, tablename As String)
+        Dim myDatatable As DataTable = Nothing
+        Dim myAnzRecords As Int16
+        Try
+            MyLog($"SqlFillDataTable2::info Tabelle '{tablename}' sql: {sql.Replace("  ", "").Replace(vbCrLf, " ").Replace(vbTab, " ")}")
+            Dim con As SqlConnection = SqlBuildConnection(My.Settings.SQLDataSource, My.Settings.SQLInitialCatalog, My.Settings.SQLUserID, My.Settings.SQLPassword)
+            'Dim cleansql As String = sql.Replace("  ", "").Replace(vbCrLf, " ").Replace(vbTab, " ")
+            Dim mySqlDataAdpter As SqlDataAdapter = New SqlDataAdapter(sql, con)
+            myDatatable = New DataTable()
+            myDatatable.TableName = tablename
+            myAnzRecords = mySqlDataAdpter.Fill(myDatatable) 'Hinzufügen der Daten und Anzahl als Rückgabewert
+            MyLog($"SqlFillDataTable2::info Tabelle '{tablename}' gelesen: {myAnzRecords} Datensätze")
+        Catch ex As Exception
+            MyError(ex, "SqlFillDataTable2")
+        End Try
+        Return myDatatable
+    End Function
+
 End Module

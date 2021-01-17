@@ -34,6 +34,19 @@ Module WpToolsModule
             log.Error(ex.Message)
         End Try
     End Sub
+    Public Sub MyError(ByRef mex As Exception, tag As String)
+
+        Try
+            log.Error($"{tag}: {mex.Message}")
+            log.Error($"{tag}: {mex.InnerException}")
+            log.Error($"{tag}: {mex.Source}")
+            log.Error($"{tag}: {mex.StackTrace}")
+            log.Error($"{tag}: {mex.TargetSite}")
+        Catch ex As Exception
+            log.Error(ex.Message)
+        End Try
+
+    End Sub
     Public Function ListSettings() As Boolean
         For Each Val As Configuration.SettingsProperty In My.Settings.Properties
             MyLog($"Name:{Val.Name} Type:'{Val.PropertyType}' Default:'{Val.DefaultValue}' Value:'{My.Settings.Item(Val.Name)}'")

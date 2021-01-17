@@ -22,20 +22,16 @@ Imports log4net
 
 Module WpToolsModule
     Public log As log4net.ILog = LogManager.GetLogger("WpTestFrameworkModule")
-    Public Sub MyLog(message As String, Optional level As String = "info")
+    'Public debug As Boolean = My.Settings.Debug
 
+    Public Sub MyLog(message As String)
         Try
-            If level <> "info" Then
-                log.Error(message)
-            Else
-                log.Info(message)
-            End If
+            log.Info(message)
         Catch ex As Exception
             log.Error(ex.Message)
         End Try
     End Sub
     Public Sub MyError(ByRef mex As Exception, tag As String)
-
         Try
             log.Error($"{tag}: {mex.Message}")
             log.Error($"{tag}: {mex.InnerException}")
@@ -45,29 +41,29 @@ Module WpToolsModule
         Catch ex As Exception
             log.Error(ex.Message)
         End Try
-
     End Sub
+
     Public Function ListSettings() As Boolean
         For Each Val As Configuration.SettingsProperty In My.Settings.Properties
             MyLog($"Name:{Val.Name} Type:'{Val.PropertyType}' Default:'{Val.DefaultValue}' Value:'{My.Settings.Item(Val.Name)}'")
         Next
         Return True
     End Function
+
     Public Function SetNetworkConfigPath()
         '### DefaultConfigFile in My.Settings an das Projekt anpassen
         'My.Settings.DefaultConfigFile = "wpContacts-Session-Outlook-Addin.xml"
         Try
             If Environment.GetEnvironmentVariable("wpconfig") > "" Then
                 My.Settings.NetworkConfigStore = Environment.GetEnvironmentVariable("wpconfig")
-            Else
-                '### Thats for developement only
-                'My.Settings.NetworkConfigStore = "\\v-046\msi\webpoint"
             End If
             Return True
         Catch ex As Exception
+            MyError(ex, "SetNetworkConfigPath")
             Return False
         End Try
     End Function
+
     Public Function ReadConfigFromXML(myfile)
         Try
             MyLog("Reading XML config file")
@@ -80,14 +76,14 @@ Module WpToolsModule
             For Each configrow In configtable.Rows
                 Dim row As New Dictionary(Of String, String)
                 For Each dc As DataColumn In configtable.Columns
-                    'MyLog(dc.ColumnName & ": " & configrow(dc.ColumnName))
+                    If debug = True Then MyLog(dc.ColumnName & ": " & configrow(dc.ColumnName))
                     row.Add(dc.ColumnName, configrow(dc.ColumnName))
                 Next
                 config = row
             Next
             Return config
         Catch ex As Exception
-            MyLog(ex.Message, "error")
+            MyError(ex, "ReadConfigFromXML")
             Return Nothing
         End Try
     End Function

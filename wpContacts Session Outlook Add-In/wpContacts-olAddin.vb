@@ -19,9 +19,16 @@
 
     Private Sub ThisAddIn_Startup() Handles Me.Startup
         MyLog("ADDINSTARTUP ##################################################################################")
+        If Environment.GetEnvironmentVariable("wpdebug") > "" Then
+            My.Settings.Debug = True
+        Else
+            My.Settings.Debug = False
+        End If
+        My.Settings.Save()
+        MyLog($"DEBUG: {My.Settings.Debug} wpdebug={Environment.GetEnvironmentVariable("wpdebug")}")
     End Sub
 
     Private Sub ThisAddIn_Shutdown() Handles Me.Shutdown
-
+        MyLog("ADDINSHUTDOWN ################################################################################")
     End Sub
 End Class

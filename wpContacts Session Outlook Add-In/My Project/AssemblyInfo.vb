@@ -36,7 +36,7 @@ Imports System.Security
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
 '### https://stackoverflow.com/questions/356543/can-i-automatically-increment-the-file-build-version-when-using-visual-studio
-<Assembly: AssemblyVersion("1.5.*")>
+<Assembly: AssemblyVersion("1.6.*")>
 '<Assembly: AssemblyFileVersion("1.5.0.0")>
 <Assembly: log4net.Config.XmlConfigurator(ConfigFile:="config.log4net", Watch:=True)>
 

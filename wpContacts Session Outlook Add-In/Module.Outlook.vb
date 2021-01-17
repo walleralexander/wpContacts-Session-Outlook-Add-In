@@ -26,7 +26,7 @@ Module ModuleOutlook
             MyLog($"CheckOutlookFolderExists/{tag}: Found folder '{myfolder}' Anzahl:{olMandatare.Items.Count}")
             Return True
         Catch ex As Exception
-            MyLog($"CheckOutlookFolderExists/{tag}: {ex.Message}", "error")
+            MyError(ex, $"CheckOutlookFolderExists/{tag}: {ex.Message}")
             Return False
         Finally
             outlookObj = Nothing
@@ -44,9 +44,7 @@ Module ModuleOutlook
             newfolder.ShowAsOutlookAB = True
             Return True
         Catch ex As Exception
-            MyLog($"CreateOutlookFolder: {ex.Message}", "error")
-            MyLog($"CreateOutlookFolder: {ex.Source}", "error")
-            MyLog($"CreateOutlookFolder: {ex.InnerException}", "error")
+            MyError(ex, "CreateOutlookFolder")
             Return False
         Finally
             outlookObj = Nothing

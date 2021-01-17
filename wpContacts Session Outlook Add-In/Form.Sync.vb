@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 Imports System.Data.SqlClient
 Imports System.Data
-Imports Microsoft.Exchange.WebServices.Data
+'Imports Microsoft.Exchange.WebServices.Data
 
 '### LIZENZ / LICENSE https://github.com/walleralexander/wpContacts-Session-Outlook-Add-In/blob/master/LICENSE.txt
 
@@ -77,9 +77,6 @@ Public Class FormSync
             btnClose.Text = "Schließen"
         Catch ex As Exception
             MyError(ex, "RunSync")
-            'MyLog($"RunSync: {ex.Message}", "error")
-            'MyLog($"RunSync: {ex.InnerException}", "error")
-            'MyLog($"RunSync: {ex.Source}", "error")
             Cursor.Current = Cursors.Default
             lblSyncStatus.Text = ex.Message
             btnClose.Text = "Schließen"
@@ -113,7 +110,6 @@ Public Class FormSync
             Next
         Catch ex As Exception
             MyError(ex, "OL dele")
-            'MyLog($"OL dele ERROR: {ex.Message} {ex.Source} {ex.InnerException}")
             Return False
         End Try
         MyLog("Gelöscht " & (i - 1).ToString & " von " & anzOutlookItems & " K:" & x & "/G:" & y)
@@ -135,7 +131,8 @@ Public Class FormSync
                 MyLog($"Mandatar: {myDisplayname}")
 
                 '### ToDo change webservices.data.stringlist with dictionary??
-                Dim myCategories As StringList = New StringList From {Clean(person("pepartei"))}
+                'Dim myCategories As StringList = New StringList From {Clean(person("pepartei"))}
+                Dim myCategories As String = Clean(person("pepartei"))
 
                 Dim myFirma As String
                 If Clean(person("adfirma1")) = "a" Then myFirma = "" Else myFirma = Clean(person("adfirma1"))
@@ -159,36 +156,34 @@ Public Class FormSync
                 End If
 
                 myBody &= vbCrLf
-                Dim myGremien As DataTable = GetMyGremien(person("adnr"))
+                '### ZERODAY - see remarks page down
+                Dim zerodate As DateTime = #1/1/1900 01:00:00 AM#
+
                 Dim myadat As String
                 Dim myedat As String
                 Dim enddate As String = ""
                 Dim enddate2 As Date
                 Dim startdate As String = ""
                 Dim startdate2 As Date
-                Dim zerodate As DateTime = #1/1/1900 01:00:00 AM#
                 Dim myperiode As String = ""
                 Dim myp As String = "0"
 
-                myBody &= $"Mitglied in {myGremien.Rows.Count} Gremien" & vbCrLf
+                Dim myGremien As DataTable = GetMyGremien(person("adnr"))
+                myBody &= $"Mitglied in {myGremien.Rows.Count} Gremien" & vbCrLf & vbCrLf
                 For Each myGremium As DataRow In myGremien.Rows
                     myadat = Clean(myGremium("mgadat"))
                     myedat = Clean(myGremium("mgedat"))
-                    Dim adays As Integer
-                    Dim edays As Integer
                     Try
+                        '### Offsett = 2415019 ; From Session-DB we get a serial 'date'. x - 2415019 you get days since 1.1.1900
+                        '### Minimum zeroday is 1.1.1900 01:00 so the number of days is again 2 to much.
                         If myadat > 0 Then
-                            adays = myadat - 2415019 - 2
-                            startdate = zerodate.AddDays(adays)
+                            startdate = zerodate.AddDays(myadat - 2415019 - 2)
                         Else
-                            adays = 0
                             startdate = ""
                         End If
                         If myedat > 0 Then
-                            edays = myedat - 2415019 - 2
-                            enddate = zerodate.AddDays(edays)
+                            enddate = zerodate.AddDays(myedat - 2415019 - 2)
                         Else
-                            edays = 0
                             enddate = ""
                         End If
                         If startdate.Length > 0 And enddate.Length > 0 Then
@@ -210,24 +205,17 @@ Public Class FormSync
                     Finally
                         MyLog($"gremium: {myGremium("grname")}")
                         MyLog($"myadat: {myadat} myedat: {myedat}")
-                        'MyLog($"adays: {adays} edays: {edays}")
-                        'MyLog($"startdate: {startdate} enddate: {enddate}")
                         MyLog($"myperiode: {myperiode} {myp}")
                     End Try
-                    myBody &= Clean(myGremium("grname")) & " " & Clean(myGremium("mgfunk")) & vbCrLf
-                    'myBody &= myGremium("grname") & " " & myGremium("mgfunk") & " " & vbCrLf
-                    'myBody &= myGremium("mgadat") & " " & myGremium("mgedat") & " " & vbCrLf
-                    'myBody &= myadat & " " & myedat & " " & vbCrLf
-                    'myBody &= startdate & " " & enddate & " " & vbCrLf
-                    myBody &= myperiode & vbCrLf
-                    'myBody &= vbCrLf
+                    myBody &= Clean(myGremium("grname")) & " (" & Clean(myGremium("mgfunk")) & ") - " & Clean(myGremium("amname")) & vbCrLf
+                    myBody &= vbTab & myperiode & vbCrLf
+                    myBody &= vbCrLf
                 Next
-
                 myBody &= vbCrLf
                 myBody &= "Geändert: " & mymodified & vbCrLf
                 '### BODY end ###
 
-                'MyLog($"OL cont New {cContacts} {myDisplayname}")
+                If debug = True Then MyLog($"OL cont New {cContacts} {myDisplayname}")
                 Dim newContact As Outlook.ContactItem = olMandatare.Items.Add(Outlook.OlItemType.olContactItem)
                 Dim email1 As String = CStr(Clean(person("ademail")))
                 Dim email2 As String = CStr(Clean(person("ademail2")))
@@ -265,7 +253,7 @@ Public Class FormSync
                     .Department = Clean(person("adabt"))
                     .JobTitle = Clean(person("adberuf"))
                     .Profession = Clean(person("adpos"))
-                    .Categories = myCategories.ToString
+                    .Categories = myCategories
 
                     .HomeTelephoneNumber = Clean(person("adtel2"))
                     .HomeFaxNumber = Clean(person("adtel4"))
@@ -364,7 +352,7 @@ Public Class FormSync
                                         newContactGroupErsatz.AddMember(newrecipient)
                                 End Select
                             Catch ex As Exception
-                                MyLog($"OL gr add ERROR: {ex.Message} {olContactGroupName} {myName}", "error")
+                                MyError(ex, $"OL gr add ERROR: {ex.Message} {olContactGroupName} {myName}")
                             End Try
                         End If
                     Next
@@ -385,7 +373,7 @@ Public Class FormSync
                         MyLog($"OL gr new groupe saves: {ex.Message} {olContactGroupName}")
                     End Try
                 Catch ex As Exception
-                    MyLog($"OL gr new: {ex.Message} {olContactGroupName}", "error")
+                    MyError(ex, $"OL gr new: {ex.Message} {olContactGroupName}")
                     Exit Sub
                 End Try
             Next

@@ -90,10 +90,11 @@ Module SessionsModule
         ' mgadat = 09.04.2015
         Try
             Dim Sql As String = "
-                select grname, grkurz, mgfunk, mgadat, mgedat, pepartei
+                select grname, grkurz, mgfunk, amname, mgadat, mgedat, pepartei
                     from tmg
                     join tpe on tmg.mgpenr=tpe.penr
                     join tgr on tmg.mggrnr=tgr.grnr
+                    join tam on tmg.mgamnr=tam.amnr
                     where peadnr=" & adnr.ToString & "
                     order by mgedat, mgadat, grname
             "
@@ -104,14 +105,17 @@ Module SessionsModule
         End Try
         Return tbl
     End Function
+
     Public Function GetMyKategorien(adnr As String)
+        MyLog($"GetMyKategorien fuer {adnr}")
         '# insert into ttx (txnr,txadat,txdef,txdef1,txdef2,txdef3,txdef4,txdef5,txdef6,txedat,txname,txsort,txtext,txtext1,txtyp,txwww,tx__nr,tx__typ,txcreated,txmodified) 
         '  values(32, 2459123, 0, 0, 0, 0, 0, 0, 0, 0,'Amt (Mitarbeiter/intern)',0,' ',' ',0,16,0,891,'2020-09-30 09:39:37.6600000','2020-09-30 12:07:18.6933333');
         '# insert into tgr 
-
         ' tgr ist nicht relevant
-
+        '### UNKLAR in welcher Tabelle die Kategorien sind
+        Return True
     End Function
+
     Public Function SaveConfigToXML(myfile)
         Try
             Dim configAPP As New DataSet("wpContactTool")
@@ -139,7 +143,7 @@ Module SessionsModule
             MyLog("write to" & myfile)
             configAPP.WriteXml(myfile)
         Catch ex As Exception
-            MyLog(ex.Message, "error")
+            MyError(ex, "SaveConfigToXML")
         End Try
         Return True
     End Function

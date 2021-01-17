@@ -129,11 +129,11 @@
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)config.log4net" />
       </Component>
 
-      <Component Id="Microsoft.Exchange.WebServices.dll" Guid="1f308658-5e79-4220-a1e5-0ece4333c69d" Win64="yes">
+      <!--<Component Id="Microsoft.Exchange.WebServices.dll" Guid="1f308658-5e79-4220-a1e5-0ece4333c69d" Win64="yes">
         <File Id="Microsoft.Exchange.WebServices.dll"
               Name="Microsoft.Exchange.WebServices.dll"
               Source="$(var.wpContacts Session Outlook Add-In_TargetDir)Microsoft.Exchange.WebServices.dll" />
-      </Component>
+      </Component>-->
 
       <Component Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll" Guid="6976751f-262f-47ab-bed4-eada46309ea2" Win64="yes">
         <File Id="Microsoft.Office.Tools.Common.v4.0.Utilities.dll"

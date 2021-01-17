@@ -1,6 +1,5 @@
 ﻿Imports Microsoft.Office.Tools.Ribbon
 Imports System.Deployment.Application
-Imports System.Reflection
 
 '### https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.contactitem?view=outlook-pia
 '### https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.distlistitem?view=outlook-pia
@@ -24,11 +23,14 @@ Public Class WpContactsRibbon1
     '    You should have received a copy Of the GNU Affero General Public License
     '    along with this program.  If Not, see < https: //www.gnu.org/licenses/>.
 
+    Public debug As Boolean = My.Settings.Debug
+
     Private Sub Ribbon1_Load(ByVal sender As System.Object, ByVal e As RibbonUIEventArgs) Handles MyBase.Load
         Dim sqlok As Boolean = False
         Dim outlookok As Boolean = False
         MyLog("### RIBBONLOAD start")
         Try
+            If debug = True Then lblDebug.Visible = True Else lblDebug.Visible = False
             My.Settings.isConfigured = False
             '### check if wpconfig environment var is set and update my.settings.NetworkConfigStore
             SetNetworkConfigPath()
@@ -36,7 +38,7 @@ Public Class WpContactsRibbon1
             outlookok = CheckOutlookFolderExists(My.Settings.OlFolder)
             If sqlok = True And outlookok = True Then My.Settings.isConfigured = True
             My.Settings.Save()
-            'ListSettings()
+            If debug = True Then ListSettings()
 
             If My.Settings.isConfigured = True Then
                 BtnUpdate.Enabled = True
@@ -55,9 +57,7 @@ Public Class WpContactsRibbon1
                 lblKontakteordner.Label = "Bitte konfigurieren!"
             End If
         Catch ex As Exception
-            MyLog($"Ribbon1_Load: {ex.Message}", "error")
-            MyLog($"Ribbon1_Load: {ex.InnerException}", "error")
-            MyLog($"Ribbon1_Load: {ex.Source}", "error")
+            MyError(ex, "Ribbon1_Load")
         Finally
             MyLog("### RIBBONLOAD end")
         End Try
@@ -111,10 +111,10 @@ Public Class WpContactsRibbon1
     Private Sub BtnNetworkConfig_Click(sender As Object, e As RibbonControlEventArgs) Handles BtnNetworkConfig.Click
         LoadNetworkConfiguration()
     End Sub
+
     Private Function LoadNetworkConfiguration()
         Dim configfile As String = My.Settings.NetworkConfigStore & "\" & My.Settings.DefaultConfigFile
         Try
-
             If IO.File.Exists(configfile) Then
                 MyLog($"LoadNetworkConfiguration: Reading config from {configfile}")
                 Dim config As Dictionary(Of String, String) = ReadConfigFromXML(configfile)
@@ -129,7 +129,7 @@ Public Class WpContactsRibbon1
             End If
             Return True
         Catch ex As Exception
-            MyLog($"LoadNetworkConfiguration: {ex.Message} {configfile}", "error")
+            MyError(ex, "LoadNetworkConfiguration")
             Return False
         End Try
     End Function

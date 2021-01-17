@@ -54,17 +54,16 @@ Public Class FormConfig
         Else
             BtnSQLtest.Enabled = True
             If SqlTestConnection(tbSQLDataSource.Text, tbSQLInitialCatalog.Text, tbSQLUserID.Text, tbSQLPassword.Text) = True Then
-                MyLog("CheckConfigFormSQL: SQL Connection OK")
                 lblSQLStatus.Text = "SQL Server Verbindung: OK"
                 lblSQLStatus.ForeColor = Drawing.Color.Green
             Else
-                MyLog("CheckConfigFormSQL: SQL Connection failed", "error")
                 lblSQLStatus.Text = "SQL Server Verbindung: Fehler"
                 lblSQLStatus.ForeColor = Drawing.Color.Red
             End If
         End If
         Return True
     End Function
+
     Private Sub ConfigForm_KeyDown(sender As Object, e As Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             Me.Close()
@@ -174,7 +173,7 @@ Public Class FormConfig
             End If
 
         Catch ex As Exception
-            MyLog($"BtnXMLsave_Click: {ex.Message}", "error")
+            MyError(ex, $"BtnXMLsave_Click: {ex.Message}")
         End Try
         MyLog("### SavingXML end")
     End Sub

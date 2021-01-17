@@ -50,6 +50,9 @@ Wird die Umgebungsvariable wpdebug=1 ist das Logging etwas ausführlicher.
 
 * Der Kontakteordner wird als "Outlook-Adressbuch" angelegt.
 
+## Änderungen
+
+17.01.2021 Die 'Microsoft Exchange Web Services Managed API' wird nicht mehr benötigt.
 
 ![Hauptmenu](./Bilder/wpContacts_Hauptmenu.png)
 Mehr Bilder: [hier](/Bilder)

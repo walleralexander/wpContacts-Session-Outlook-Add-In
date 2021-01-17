@@ -88,13 +88,12 @@ Module WpToolsModule
         End Try
     End Function
 
-    Private Sub PrintValues(ByVal table As DataTable, ByVal label As String)
-        Console.WriteLine(label)
+    Public Sub PrintValues(ByVal table As DataTable, ByVal label As String)
+        MyLog(label)
         For Each row As DataRow In table.Rows
             For Each column As DataColumn In table.Columns
-                Console.Write("{0}{1}", ControlChars.Tab, row(column))
+                MyLog($"{ ControlChars.Tab}{row(column)}")
             Next column
-            Console.WriteLine()
         Next row
     End Sub
 

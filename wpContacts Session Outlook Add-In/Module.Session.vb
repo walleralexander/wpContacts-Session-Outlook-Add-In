@@ -98,7 +98,6 @@ Module SessionsModule
                     where peadnr=" & adnr.ToString & "
                     order by mgedat, mgadat, grname
             "
-            'order by grname, mgadat
             tbl = SqlFillDataTable2(Sql, "MyGremien")
         Catch ex As Exception
             MyError(ex, "GetMyGremien")
@@ -106,8 +105,23 @@ Module SessionsModule
         Return tbl
     End Function
 
+    Public Function GetAllGremien() As DataTable
+        Dim tbl As DataTable = Nothing
+        Try
+            Dim Sql As String = "
+                select grname, grkurz, grnr
+                    from tgr order by grname
+            "
+            tbl = SqlFillDataTable2(Sql, "AlleGremien")
+        Catch ex As Exception
+            MyError(ex, "GetAllGremien")
+        End Try
+        Return tbl
+    End Function
+
     Public Function GetMyKategorien(adnr As String)
         MyLog($"GetMyKategorien fuer {adnr}")
+        '### TODO
         '# insert into ttx (txnr,txadat,txdef,txdef1,txdef2,txdef3,txdef4,txdef5,txdef6,txedat,txname,txsort,txtext,txtext1,txtyp,txwww,tx__nr,tx__typ,txcreated,txmodified) 
         '  values(32, 2459123, 0, 0, 0, 0, 0, 0, 0, 0,'Amt (Mitarbeiter/intern)',0,' ',' ',0,16,0,891,'2020-09-30 09:39:37.6600000','2020-09-30 12:07:18.6933333');
         '# insert into tgr 

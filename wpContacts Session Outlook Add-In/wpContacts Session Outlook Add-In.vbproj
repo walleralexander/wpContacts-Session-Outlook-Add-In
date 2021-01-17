@@ -228,6 +228,12 @@
     <Compile Include="Form.Config.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form.Gremien.Designer.vb">
+      <DependentUpon>Form.Gremien.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form.Gremien.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form.Sync.Designer.vb">
       <DependentUpon>Form.Sync.vb</DependentUpon>
     </Compile>
@@ -253,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form.Config.resx">
       <DependentUpon>Form.Config.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form.Gremien.resx">
+      <DependentUpon>Form.Gremien.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form.Sync.resx">
       <DependentUpon>Form.Sync.vb</DependentUpon>
@@ -350,6 +359,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\StatusCriticalError_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ListViewTable_16x.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

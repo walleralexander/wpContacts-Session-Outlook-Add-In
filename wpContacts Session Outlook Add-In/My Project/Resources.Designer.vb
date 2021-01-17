@@ -183,6 +183,16 @@ Namespace My.Resources
         '''<summary>
         '''  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         '''</summary>
+        Public ReadOnly Property ListViewTable_16x() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ListViewTable_16x", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        '''</summary>
         Public ReadOnly Property SQLDatabase_16x() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("SQLDatabase_16x", resourceCulture)

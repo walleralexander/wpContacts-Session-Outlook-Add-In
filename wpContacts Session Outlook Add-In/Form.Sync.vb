@@ -123,15 +123,23 @@ Public Class FormSync
                 cContacts += 1
 
                 Dim myDisplayname As String = ""
-                If Clean(person("adakgrad")).ToString.Length > 0 Then myDisplayname &= Clean(person("adakgrad")) & " "
-                If Clean(person("adtit")).ToString.Length > 0 Then myDisplayname &= Clean(person("adtit")) & " "
-                myDisplayname &= Clean(person("advname")) & " " & Clean(person("adname"))
-                If Clean(person("adtitn")).ToString.Length > 0 Then myDisplayname &= " " & Clean(person("adtitn"))
+                Dim myadakgrad As String = Clean(person("adakgrad"))
+                Dim myadtit As String = Clean(person("adtit"))
+                Dim myadvname As String = Clean(person("advname"))
+                Dim myadname As String = Clean(person("adname"))
+                Dim myadtitn As String = Clean(person("adtitn"))
+
+                If myadakgrad.ToString.Length > 0 Then myDisplayname &= myadakgrad & " "
+                If myadtit.ToString.Length > 0 Then myDisplayname &= myadtit & " "
+                myDisplayname &= myadvname & " " & myadname
+                If myadtitn.ToString.Length > 0 Then myDisplayname &= " " & myadtitn
                 MyLog("--------------------------------------------------------------------------------------------")
                 MyLog($"Mandatar: {myDisplayname}")
 
                 '### ToDo change webservices.data.stringlist with dictionary??
                 'Dim myCategories As StringList = New StringList From {Clean(person("pepartei"))}
+                '### removed 2021-01-17
+
                 Dim myCategories As String = Clean(person("pepartei"))
 
                 Dim myFirma As String
@@ -144,6 +152,7 @@ Public Class FormSync
                 Dim mysbatnr As String = Clean(person("sbatnr"))
                 Dim mybereich As String = Clean(person("atname"))
                 Dim mymodified As String = Clean(person("admodified"))
+
                 Dim myBody As String = "Mitarbeit: " & Clean(person("pepartei")) & vbCrLf
                 myBody &= "Sessionnet-Benutzername: " & Clean(person("pesch")) & vbCrLf
                 'myBody &= "PRID: " & Clean(person("peid")) & vbCrLf
@@ -203,11 +212,18 @@ Public Class FormSync
                     Catch ex As Exception
                         MyError(ex, "CalcStartEndDate")
                     Finally
-                        MyLog($"gremium: {myGremium("grname")}")
-                        MyLog($"myadat: {myadat} myedat: {myedat}")
-                        MyLog($"myperiode: {myperiode} {myp}")
+                        If debug = True Then
+                            MyLog($"gremium: {myGremium("grname")}")
+                            MyLog($"myadat: {myadat} myedat: {myedat}")
+                            MyLog($"myperiode: {myperiode} {myp}")
+                        End If
                     End Try
-                    myBody &= Clean(myGremium("grname")) & " (" & Clean(myGremium("mgfunk")) & ") - " & Clean(myGremium("amname")) & vbCrLf
+                    Dim mymgfunkt As String = Clean(myGremium("mgfunk"))
+                    myBody &= Clean(myGremium("grname"))
+                    If mymgfunkt.Length > 0 Then
+                        myBody &= " (" & Clean(myGremium("mgfunk")) & ")"
+                    End If
+                    myBody &= " - " & Clean(myGremium("amname")) & vbCrLf
                     myBody &= vbTab & myperiode & vbCrLf
                     myBody &= vbCrLf
                 Next

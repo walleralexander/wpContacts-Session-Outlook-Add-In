@@ -137,4 +137,11 @@ Public Class WpContactsRibbon1
     Private Sub BtnResetSettings_Click(sender As Object, e As RibbonControlEventArgs) Handles BtnResetSettings.Click
         My.Settings.Reset()
     End Sub
+
+    Private Sub BtnGremien_Click(sender As Object, e As RibbonControlEventArgs) Handles BtnGremien.Click
+        MyLog("### BtnGremien_Click start")
+        Dim f = New FormGremien
+        f.ShowDialog()
+        MyLog("### BtnGremien_Click end")
+    End Sub
 End Class

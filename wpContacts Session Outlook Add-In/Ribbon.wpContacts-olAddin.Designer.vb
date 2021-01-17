@@ -54,13 +54,14 @@
         Me.Box1 = Me.Factory.CreateRibbonBox
         Me.Label1 = Me.Factory.CreateRibbonLabel
         Me.lblKontakteordner = Me.Factory.CreateRibbonLabel
+        Me.lblDebug = Me.Factory.CreateRibbonLabel
         Me.BtnUpdate = Me.Factory.CreateRibbonButton
+        Me.BtnGremien = Me.Factory.CreateRibbonButton
         Me.BtnConfig = Me.Factory.CreateRibbonButton
-        Me.BtnInfo = Me.Factory.CreateRibbonButton
-        Me.BtnCheckUPD = Me.Factory.CreateRibbonButton
         Me.BtnNetworkConfig = Me.Factory.CreateRibbonButton
         Me.BtnResetSettings = Me.Factory.CreateRibbonButton
-        Me.lblDebug = Me.Factory.CreateRibbonLabel
+        Me.BtnInfo = Me.Factory.CreateRibbonButton
+        Me.BtnCheckUPD = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.BefehleGroup.SuspendLayout()
         Me.SessionGroup2.SuspendLayout()
@@ -80,6 +81,7 @@
         'BefehleGroup
         '
         Me.BefehleGroup.Items.Add(Me.BtnUpdate)
+        Me.BefehleGroup.Items.Add(Me.BtnGremien)
         Me.BefehleGroup.Items.Add(Me.BtnConfig)
         Me.BefehleGroup.Items.Add(Me.BtnInfo)
         Me.BefehleGroup.Items.Add(Me.BtnCheckUPD)
@@ -165,6 +167,12 @@
         Me.lblKontakteordner.Label = "lblKontakteordner"
         Me.lblKontakteordner.Name = "lblKontakteordner"
         '
+        'lblDebug
+        '
+        Me.lblDebug.Label = "[DEBUGMODE]"
+        Me.lblDebug.Name = "lblDebug"
+        Me.lblDebug.Visible = False
+        '
         'BtnUpdate
         '
         Me.BtnUpdate.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -175,6 +183,14 @@
         Me.BtnUpdate.OfficeImageId = "Zoom100"
         Me.BtnUpdate.ShowImage = True
         '
+        'BtnGremien
+        '
+        Me.BtnGremien.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.BtnGremien.Image = Global.wpContact_Outlook_Add_in.My.Resources.Resources.ListViewTable_16x
+        Me.BtnGremien.Label = "Gremien"
+        Me.BtnGremien.Name = "BtnGremien"
+        Me.BtnGremien.ShowImage = True
+        '
         'BtnConfig
         '
         Me.BtnConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -182,6 +198,18 @@
         Me.BtnConfig.Name = "BtnConfig"
         Me.BtnConfig.OfficeImageId = "AddInManager"
         Me.BtnConfig.ShowImage = True
+        '
+        'BtnNetworkConfig
+        '
+        Me.BtnNetworkConfig.Label = "Test NetworkConfig"
+        Me.BtnNetworkConfig.Name = "BtnNetworkConfig"
+        Me.BtnNetworkConfig.Visible = False
+        '
+        'BtnResetSettings
+        '
+        Me.BtnResetSettings.Label = "Reset Settings"
+        Me.BtnResetSettings.Name = "BtnResetSettings"
+        Me.BtnResetSettings.Visible = False
         '
         'BtnInfo
         '
@@ -199,24 +227,6 @@
         Me.BtnCheckUPD.Name = "BtnCheckUPD"
         Me.BtnCheckUPD.ShowImage = True
         Me.BtnCheckUPD.Visible = False
-        '
-        'BtnNetworkConfig
-        '
-        Me.BtnNetworkConfig.Label = "Test NetworkConfig"
-        Me.BtnNetworkConfig.Name = "BtnNetworkConfig"
-        Me.BtnNetworkConfig.Visible = False
-        '
-        'BtnResetSettings
-        '
-        Me.BtnResetSettings.Label = "Reset Settings"
-        Me.BtnResetSettings.Name = "BtnResetSettings"
-        Me.BtnResetSettings.Visible = False
-        '
-        'lblDebug
-        '
-        Me.lblDebug.Label = "[DEBUGMODE]"
-        Me.lblDebug.Name = "lblDebug"
-        Me.lblDebug.Visible = False
         '
         'WpContactsRibbon1
         '
@@ -257,6 +267,7 @@
     Friend WithEvents BtnNetworkConfig As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents BtnResetSettings As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents lblDebug As Microsoft.Office.Tools.Ribbon.RibbonLabel
+    Friend WithEvents BtnGremien As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

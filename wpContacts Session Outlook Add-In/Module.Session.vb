@@ -39,7 +39,7 @@ Module SessionsModule
             tbl = SqlFillDataTable(con, "SessionContacts", Sql)
             MyLog($"ReadContactsFromSession::OK:Tabelle 'tad' Contacts: {tbl.Rows.Count}")
         Catch ex As Exception
-            MyLog($"ReadContactsFromSession::Fehler:Tabelle 'tad' Message: {ex.Message}")
+            MyError(ex, $"ReadContactsFromSession::Fehler:Tabelle 'tad'")
         End Try
         Return tbl
     End Function
@@ -54,11 +54,11 @@ Module SessionsModule
             tbl = SqlFillDataTable(con, "Gremien", Sql)
             MyLog($"ReadGremienFromSession::OK:Tabelle 'tad' Contacts: {tbl.Rows.Count}")
         Catch ex As Exception
-            MyLog($"ReadGremienFromSession::Fehler:Tabelle 'tad' Message: {ex.Message}")
+            MyError(ex, $"ReadGremienFromSession::Fehler:Tabelle 'tad'")
         End Try
         Return tbl
     End Function
-    Function ReadOneGremiumFromSession(grnr As Int16)
+    Function ReadOneGremiumFromSession(grnr As Int16) As DataTable
         Dim tbl As DataTable = Nothing
         Dim con As SqlConnection = SqlBuildConnection(My.Settings.SQLDataSource, My.Settings.SQLInitialCatalog, My.Settings.SQLUserID, My.Settings.SQLPassword)
         Try
@@ -78,7 +78,41 @@ Module SessionsModule
             "
             tbl = SqlFillDataTable(con, "Gremien", Sql)
         Catch ex As Exception
-            MyLog($"ReadOneGremiumFromSession::Fehler: Tabelle 'tad' Message: {ex.Message}")
+            MyError(ex, $"ReadOneGremiumFromSession::Fehler: Tabelle 'tad'")
+        End Try
+        Return tbl
+    End Function
+
+    Function ReadMembersOfGremium(grnr As Int16) As DataTable
+        Dim tbl As DataTable = Nothing
+        Dim con As SqlConnection = SqlBuildConnection(My.Settings.SQLDataSource, My.Settings.SQLInitialCatalog, My.Settings.SQLUserID, My.Settings.SQLPassword)
+        Try
+            Dim Sql As String = "
+                select 
+                rtrim(amname) as 'amName', 
+                rtrim(mgfunk) as 'Funktion', 
+                rtrim(adakgrad) as 'AkadG', 
+                rtrim(adtit) as 'Titel', 
+                rtrim(adname) as 'Name', 
+                rtrim(advname) as 'Vorname', 
+                rtrim(adtitn) as 'TitelN', 
+                mgsort as 'Sort', 
+                rtrim(pepartei) as 'Partei', 
+                rtrim(adabt) as 'Abteilung', 
+                rtrim(adberuf) as 'Beruf', 
+                rtrim(ademail) as 'E-Mail privat', 
+                rtrim(ademail2) as 'E-Mail gesch'
+                from tmg
+                inner join tam on tmg.mgamnr=tam.amnr
+                inner join tpe on tmg.mgpenr=tpe.penr
+                inner join tad on tpe.peadnr=tad.adnr
+                where mggrnr = " & grnr.ToString & " and mgedat = 0 order by mgsort desc
+            "
+            'inner join tgr on tmg.mggrnr=tgr.grnr
+            'adstr, adhnr, adplz, adort, adtel, adtel2, adtel3, adtel4, adtel5, adtel6
+            tbl = SqlFillDataTable(con, "Gremien", Sql)
+        Catch ex As Exception
+            MyError(ex, $"ReadOneGremiumFromSession::Fehler: Tabelle 'tad'")
         End Try
         Return tbl
     End Function
@@ -109,8 +143,10 @@ Module SessionsModule
         Dim tbl As DataTable = Nothing
         Try
             Dim Sql As String = "
-                select grname, grkurz, grnr
-                    from tgr order by grname
+                select rtrim(grname) as grname, rtrim(grkurz) as grkurz, grnr
+                    from tgr 
+                    where gredat = 0 and grnr > 0
+                    order by grname
             "
             tbl = SqlFillDataTable2(Sql, "AlleGremien")
         Catch ex As Exception
@@ -167,7 +203,7 @@ Module SessionsModule
             MyLog($"SaveContactsFromSession::Info: Outputfile '{file}' ")
             dt.WriteXml(file)
         Catch ex As Exception
-            MyLog($"SaveContactsFromSession::Fehler: SaveContactsFromSession '{file}' Message: {ex.Message}")
+            MyError(ex, $"SaveContactsFromSession::Fehler: SaveContactsFromSession '{file}'")
             Return False
         End Try
         Return True

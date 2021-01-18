@@ -23,56 +23,83 @@ Partial Class FormGremien
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.CbGremien = New System.Windows.Forms.ComboBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
         Me.SuspendLayout()
         '
         'CbGremien
         '
-        Me.CbGremien.Dock = System.Windows.Forms.DockStyle.Top
         Me.CbGremien.FormattingEnabled = True
-        Me.CbGremien.Location = New System.Drawing.Point(0, 0)
+        Me.CbGremien.Location = New System.Drawing.Point(14, 14)
+        Me.CbGremien.Margin = New System.Windows.Forms.Padding(5)
         Me.CbGremien.Name = "CbGremien"
-        Me.CbGremien.Size = New System.Drawing.Size(800, 21)
+        Me.CbGremien.Size = New System.Drawing.Size(526, 28)
         Me.CbGremien.TabIndex = 0
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TextBox1.Location = New System.Drawing.Point(0, 21)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(800, 224)
-        Me.TextBox1.TabIndex = 2
         '
         'DataGridView1
         '
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.AllowUserToDeleteRows = False
+        Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DataGridView1.Location = New System.Drawing.Point(0, 245)
+        Me.DataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2
+        Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(5)
+        Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersWidth = 51
-        Me.DataGridView1.Size = New System.Drawing.Size(800, 205)
+        Me.DataGridView1.Size = New System.Drawing.Size(1262, 604)
         Me.DataGridView1.TabIndex = 3
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.CbGremien)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.DataGridView1)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1262, 667)
+        Me.SplitContainer1.SplitterDistance = 59
+        Me.SplitContainer1.TabIndex = 5
         '
         'FormGremien
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.DataGridView1)
-        Me.Controls.Add(Me.TextBox1)
-        Me.Controls.Add(Me.CbGremien)
+        Me.AutoScroll = True
+        Me.AutoSize = True
+        Me.ClientSize = New System.Drawing.Size(1262, 667)
+        Me.Controls.Add(Me.SplitContainer1)
+        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "FormGremien"
-        Me.Text = "Form"
+        Me.ShowIcon = False
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Form.Gremien"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents CbGremien As Windows.Forms.ComboBox
-    Friend WithEvents TextBox1 As Windows.Forms.TextBox
     Friend WithEvents DataGridView1 As Windows.Forms.DataGridView
+    Friend WithEvents SplitContainer1 As Windows.Forms.SplitContainer
 End Class

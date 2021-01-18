@@ -1,7 +1,9 @@
 select 
 tgr.grname, grkurz, mgfunk, 
 mgadat, 
-mgedat, pepartei, amname, *
+mgedat, 
+RTRIM(pepartei) as Partei, 
+rtrim(amname), *
 --adname, 
 --from tpe
 from tmg

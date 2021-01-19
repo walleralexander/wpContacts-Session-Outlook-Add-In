@@ -101,7 +101,11 @@ Module SessionsModule
                 rtrim(adabt) as 'Abteilung', 
                 rtrim(adberuf) as 'Beruf', 
                 rtrim(ademail) as 'E-Mail privat', 
-                rtrim(ademail2) as 'E-Mail gesch'
+                rtrim(ademail2) as 'E-Mail gesch',
+                rtrim(adtel) as 'Tel privat', 
+                rtrim(adtel2) as 'Tel gesch',
+                rtrim(adtel5) as 'Mobil privat', 
+                rtrim(adtel6) as 'Mobil gesch'
                 from tmg
                 inner join tam on tmg.mgamnr=tam.amnr
                 inner join tpe on tmg.mgpenr=tpe.penr

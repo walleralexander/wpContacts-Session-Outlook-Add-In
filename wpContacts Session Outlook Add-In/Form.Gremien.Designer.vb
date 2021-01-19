@@ -38,7 +38,7 @@ Partial Class FormGremien
         Me.CbGremien.Location = New System.Drawing.Point(14, 14)
         Me.CbGremien.Margin = New System.Windows.Forms.Padding(5)
         Me.CbGremien.Name = "CbGremien"
-        Me.CbGremien.Size = New System.Drawing.Size(526, 28)
+        Me.CbGremien.Size = New System.Drawing.Size(526, 24)
         Me.CbGremien.TabIndex = 0
         '
         'DataGridView1
@@ -55,7 +55,7 @@ Partial Class FormGremien
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersWidth = 51
-        Me.DataGridView1.Size = New System.Drawing.Size(1262, 604)
+        Me.DataGridView1.Size = New System.Drawing.Size(1497, 604)
         Me.DataGridView1.TabIndex = 3
         '
         'SplitContainer1
@@ -72,17 +72,17 @@ Partial Class FormGremien
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.DataGridView1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1262, 667)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1497, 667)
         Me.SplitContainer1.SplitterDistance = 59
         Me.SplitContainer1.TabIndex = 5
         '
         'FormGremien
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1262, 667)
+        Me.ClientSize = New System.Drawing.Size(1497, 667)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
         Me.Margin = New System.Windows.Forms.Padding(5)

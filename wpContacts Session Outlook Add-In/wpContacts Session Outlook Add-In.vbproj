@@ -139,10 +139,6 @@
     <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -274,10 +270,6 @@
     <None Include="config.log4net">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="wpContacts Session Outlook Add-In_1_TemporaryKey.pfx" />
-    <None Include="wpContacts Session Outlook Add-In_2_TemporaryKey.pfx" />
-    <None Include="wpContacts Session Outlook Add-In_3_TemporaryKey.pfx" />
-    <None Include="wpContacts Session Outlook Add-In_4_TemporaryKey.pfx" />
     <None Include="wpContacts Session Outlook Add-In_TemporaryKey.pfx" />
     <None Include="wpContacts-olAddin.Designer.xml">
       <DependentUpon>wpContacts-olAddin.vb</DependentUpon>
@@ -381,10 +373,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>wpContacts Session Outlook Add-In_4_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>wpContacts Session Outlook Add-In_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>1F4994CD7F88FB23BC1E595261AF584DA1EA9B84</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>D44F111147AFFA9EF3A1841DA80DEA139FEBB6A6</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SetupBuild|AnyCPU'">
     <OutputPath>bin\SetupBuild\</OutputPath>

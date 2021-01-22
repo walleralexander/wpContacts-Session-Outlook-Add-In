@@ -47,8 +47,11 @@ Mit einer **Umgebungsvariable** kann eingestellt werden auf welchem Pfad diese D
 Wird die Umgebungsvariable wpdebug=1 ist das Logging etwas ausführlicher.
 
 * Das Löschen der Kontakte dauert länger als notwendig, da es keine Möglichkeit gibt alle Kontakte auf einmal zu löschen.
-
 * Der Kontakteordner wird als "Outlook-Adressbuch" angelegt.
+
+Im EventLog findet man Infos zum Add-In und Ladezeiten.
+https://support.microsoft.com/en-us/topic/outlook-application-event-log-entries-for-add-in-load-time-c3d39bb6-1488-250c-0b5a-ba3cf4b6f15e
+https://docs.microsoft.com/de-at/archive/blogs/vsod/resolving-performance-issues-with-loading-office-add-ins-vsto-add-ins-or-shared-add-ins
 
 ## Änderungen
 

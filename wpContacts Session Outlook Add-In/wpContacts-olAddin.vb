@@ -24,8 +24,8 @@
         Else
             My.Settings.Debug = False
         End If
-        My.Settings.Save()
-        MyLog($"DEBUG: {My.Settings.Debug} wpdebug={Environment.GetEnvironmentVariable("wpdebug")}")
+        'My.Settings.Save()
+        MyLog($"DEBUG: {My.Settings.Debug} wpdebug={My.Settings.Debug}")
     End Sub
 
     Private Sub ThisAddIn_Shutdown() Handles Me.Shutdown

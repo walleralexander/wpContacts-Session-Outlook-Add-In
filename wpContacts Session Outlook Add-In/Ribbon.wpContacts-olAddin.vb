@@ -33,12 +33,14 @@ Public Class WpContactsRibbon1
             If debug = True Then lblDebug.Visible = True Else lblDebug.Visible = False
             My.Settings.isConfigured = False
             '### check if wpconfig environment var is set and update my.settings.NetworkConfigStore
-            SetNetworkConfigPath()
-            sqlok = SqlTestConnection(My.Settings.SQLDataSource, My.Settings.SQLInitialCatalog, My.Settings.SQLUserID, My.Settings.SQLPassword)
-            outlookok = CheckOutlookFolderExists(My.Settings.OlFolder)
+            '# SetNetworkConfigPath()
+            sqlok = False
+            '# SqlTestConnection(My.Settings.SQLDataSource, My.Settings.SQLInitialCatalog, My.Settings.SQLUserID, My.Settings.SQLPassword)
+            outlookok = False
+            '# CheckOutlookFolderExists(My.Settings.OlFolder)
             If sqlok = True And outlookok = True Then My.Settings.isConfigured = True
-            My.Settings.Save()
-            If debug = True Then ListSettings()
+            '# My.Settings.Save()
+            '# If debug = True Then ListSettings()
 
             If My.Settings.isConfigured = True Then
                 BtnUpdate.Enabled = True
@@ -49,17 +51,17 @@ Public Class WpContactsRibbon1
                 AnzOutlookKontakte.Text = My.Settings.AnzOutlookKontakte
                 lblKontakteordner.Label = My.Settings.OlFolder
             Else
-                MyLog("Ribbon1_Load: isConfigured = false")
+                '# MyLog("Ribbon1_Load: isConfigured = false")
                 '### try and get config from NetworkConfigStore
-                LoadNetworkConfiguration()
-                CreateOutlookFolder(My.Settings.OlFolder)
+                '# LoadNetworkConfiguration()
+                '# CreateOutlookFolder(My.Settings.OlFolder)
                 BtnUpdate.Enabled = True
                 lblKontakteordner.Label = "Bitte konfigurieren!"
             End If
         Catch ex As Exception
             MyError(ex, "Ribbon1_Load")
         Finally
-            MyLog("### RIBBONLOAD end")
+            '# MyLog("### RIBBONLOAD end")
         End Try
 
     End Sub

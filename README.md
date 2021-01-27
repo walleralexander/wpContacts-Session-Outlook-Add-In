@@ -57,5 +57,13 @@ https://docs.microsoft.com/de-at/archive/blogs/vsod/resolving-performance-issues
 
 17.01.2021 Die 'Microsoft Exchange Web Services Managed API' wird nicht mehr benötigt.
 
+## Bilder
 ![Hauptmenu](./Bilder/wpContacts_Hauptmenu.png)
+
 Mehr Bilder: [hier](/Bilder)
+
+## License
+Copyright 2020-2021 Alexander Waller
+
+Licensed under the AGPLv3: https://www.gnu.org/licenses/agpl-3.0.html
+
